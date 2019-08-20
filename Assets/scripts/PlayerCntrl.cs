@@ -4,21 +4,34 @@ using UnityEngine;
 
 public class PlayerCntrl : MonoBehaviour
 {
-
     Rigidbody2D rigidbody;
     SpriteRenderer sprite;
-    Vector2 speed;
+    public Vector2 speed;
+    public bool onGround = false;
+
+    public Transform checkGroud;
+    public float checkRadius;
+
+    public LayerMask layerGround;
+    public int jumps;
+
+    BoxCollider2D collider;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        speed = new Vector2(10,24);
+        collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        onGround = Physics2D.OverlapCircle(checkGroud.position, checkRadius, layerGround);
+        if (onGround) {
+            jumps = 1;
+        }
+        
         float moveX = UnityEngine.Input.GetAxis("Horizontal");
         if (moveX > 0)
         {
@@ -27,11 +40,10 @@ public class PlayerCntrl : MonoBehaviour
         else if(moveX < 0){
             sprite.flipX = true;
         }
-        rigidbody.MovePosition(rigidbody.position + Vector2.right * moveX * speed.x * Time.deltaTime);
-
-        /*float moveY = UnityEngine.Input.GetAxis("Vertical");
-        if (rigidbody.velocity.y == 0) {
-            rigidbody.MovePosition(rigidbody.position + Vector2.up * moveY * speed.y * Time.deltaTime);
-        }*/
+        rigidbody.velocity = Vector2.right * moveX * speed.x;
+        if (Input.GetKeyDown(KeyCode.UpArrow) && jumps > 0) {
+            rigidbody.velocity = Vector2.up * speed.y;
+            jumps--;
+        }
     }
 }
