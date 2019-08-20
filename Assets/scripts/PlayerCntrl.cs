@@ -13,7 +13,8 @@ public class PlayerCntrl : MonoBehaviour
     public float checkRadius;
 
     public LayerMask layerGround;
-    public int jumps;
+    public int maxJumps = 1;
+    private int jumps;
 
     BoxCollider2D collider;
     // Start is called before the first frame update
@@ -29,7 +30,7 @@ public class PlayerCntrl : MonoBehaviour
     {
         onGround = Physics2D.OverlapCircle(checkGroud.position, checkRadius, layerGround);
         if (onGround) {
-            jumps = 1;
+            jumps = maxJumps;
         }
         
         float moveX = UnityEngine.Input.GetAxis("Horizontal");
@@ -41,6 +42,7 @@ public class PlayerCntrl : MonoBehaviour
             sprite.flipX = true;
         }
         rigidbody.velocity = Vector2.right * moveX * speed.x;
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && jumps > 0) {
             rigidbody.velocity = Vector2.up * speed.y;
             jumps--;
