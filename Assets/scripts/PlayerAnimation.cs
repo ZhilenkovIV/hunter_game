@@ -18,7 +18,6 @@ public class PlayerAnimation : StateMachineBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
 
-        stay = (bool)animator.parameters.GetValue(0);
 
         if (moveX == 0)
         {
@@ -28,7 +27,6 @@ public class PlayerAnimation : StateMachineBehaviour
             stay = false;
         }
         animator.parameters.SetValue(stay, 0);
-
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
