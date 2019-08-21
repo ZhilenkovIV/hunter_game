@@ -607,7 +607,7 @@ MonoBehaviour:
   speed: {x: 6, y: 20}
   onGround: 0
   checkGroud: {fileID: 296865174}
-  checkRadius: 0.5
+  checkRadius: 0.2
   layerGround:
     serializedVersion: 2
     m_Bits: 256

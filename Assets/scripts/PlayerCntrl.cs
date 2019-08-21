@@ -47,5 +47,8 @@ public class PlayerCntrl : MonoBehaviour
             rigidbody.velocity = Vector2.up * speed.y;
             jumps--;
         }
+        if (Input.GetKeyUp(KeyCode.UpArrow)) {
+            rigidbody.velocity = new Vector2(moveX * speed.x, Mathf.Min(rigidbody.velocity.y, 0));
+        }
     }
 }

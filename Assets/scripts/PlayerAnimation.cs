@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class PlayerAnimation : StateMachineBehaviour
 {
+
+    public bool stay;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         float moveX = Input.GetAxis("Horizontal");
 
-        if (moveX != 0 && Mathf.Abs(moveX) != 1)
+        stay = (bool)animator.parameters.GetValue(0);
+
+        if (moveX == 0)
         {
-            animator.Play("start walk");
+            stay = true;
         }
+        else {
+            stay = false;
+        }
+        animator.parameters.SetValue(stay, 0);
 
     }
 
