@@ -16,13 +16,11 @@ public class PlayerCntrl : MonoBehaviour
     public int maxJumps = 1;
     private int jumps;
 
-    BoxCollider2D collider;
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -41,7 +39,9 @@ public class PlayerCntrl : MonoBehaviour
         else if(moveX < 0){
             sprite.flipX = true;
         }
-        rigidbody.velocity = Vector2.right * moveX * speed.x;
+
+        //rigidbody.velocity.Set(moveX * speed.x, rigidbody.velocity.y);
+        rigidbody.velocity = new Vector2(moveX * speed.x, rigidbody.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && jumps > 0) {
             rigidbody.velocity = Vector2.up * speed.y;
