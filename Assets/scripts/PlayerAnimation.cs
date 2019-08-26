@@ -8,6 +8,7 @@ public class PlayerAnimation : StateMachineBehaviour
     private bool stay;
     private float moveX;
     private float moveY;
+    public bool ground;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,19 +21,17 @@ public class PlayerAnimation : StateMachineBehaviour
     {
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
-        if (moveY == 0)
+        if (moveX == 0)
         {
-            if (moveX == 0)
-            {
-                stay = true;
-            }
-            else
-            {
-                stay = false;
-            }
-
-            animator.SetBool("stayState", stay);
+            stay = true;
         }
+        else
+        {
+            stay = false;
+        }
+
+        animator.SetBool("stayState", stay);
+        ground = animator.GetBool("onGround");
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
