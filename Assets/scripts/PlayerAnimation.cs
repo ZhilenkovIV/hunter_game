@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerAnimation : StateMachineBehaviour
 {
 
-    public bool stay;
-    public float oldMove;
-    public float moveX;
+    private bool stay;
+    private float moveX;
+    private float moveY;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -19,22 +19,20 @@ public class PlayerAnimation : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         moveX = Input.GetAxis("Horizontal");
-
-        if (moveX == 0)
+        moveY = Input.GetAxis("Vertical");
+        if (moveY == 0)
         {
-            stay = true;
-        }
-        else {
-            stay = false;
-        }
+            if (moveX == 0)
+            {
+                stay = true;
+            }
+            else
+            {
+                stay = false;
+            }
 
-        if (Mathf.Abs(oldMove) > Mathf.Abs(moveX)){
-            animator.StopPlayback();
-            stay = true;
+            animator.SetBool("stayState", stay);
         }
-
-        animator.SetBool("stayState", stay);
-        oldMove = moveX;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
