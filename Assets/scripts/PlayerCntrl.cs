@@ -16,13 +16,13 @@ public class PlayerCntrl : MonoBehaviour
     public int maxJumps = 1;
     private int jumps;
     private Animator animator;
+    public Component areaAttack;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -48,7 +48,6 @@ public class PlayerCntrl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && jumps > 0) {
             rigidbody.velocity = Vector2.up * speed.y;
-            animator.Play("jump");
             jumps--;
         }
         if (Input.GetKeyUp(KeyCode.UpArrow)) {
@@ -57,7 +56,8 @@ public class PlayerCntrl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            
+            animator.SetTrigger("attack");
+
         }
     }
 }
