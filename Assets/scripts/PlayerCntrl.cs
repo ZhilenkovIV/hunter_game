@@ -16,14 +16,15 @@ public class PlayerCntrl : MonoBehaviour
     public int maxJumps = 1;
     private int jumps;
     private Animator animator;
-    public Component areaAttack;
+    public float moveX = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-    }
+        animator = GetComponent<Animator>(); ;
+}
 
     // Update is called once per frame
     void Update()
@@ -33,8 +34,8 @@ public class PlayerCntrl : MonoBehaviour
         if (onGround) {
             jumps = maxJumps;
         }
-        
-        float moveX = UnityEngine.Input.GetAxis("Horizontal");
+
+        moveX = Input.GetAxis("Horizontal");
         if (moveX > 0)
         {
             sprite.flipX = false;
