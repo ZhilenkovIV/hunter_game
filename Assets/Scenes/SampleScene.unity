@@ -614,7 +614,7 @@ MonoBehaviour:
     m_Bits: 256
   maxJumps: 1
   moveX: 0
-  areaAttack: {fileID: 0}
+  areaAttack: {fileID: 1628440018}
 --- !u!1 &1628440017
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,7 +718,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1628440017}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
