@@ -17,6 +17,7 @@ public class PlayerCntrl : MonoBehaviour
     private int jumps;
     private Animator animator;
     public float moveX = 0;
+    public Transform areaAttack;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class PlayerCntrl : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>(); ;
+        areaAttack.GetComponent<SpriteRenderer>().hideFlags = HideFlags.HideAndDontSave;
 }
 
     // Update is called once per frame
@@ -58,6 +60,9 @@ public class PlayerCntrl : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetTrigger("attack");
+            areaAttack.GetComponent<Rigidbody2D>().WakeUp();
+            areaAttack.GetComponent<Animation>().Play();
+            areaAttack.GetComponent<SpriteRenderer>().hideFlags = HideFlags.None;
 
         }
     }
