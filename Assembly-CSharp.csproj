@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\CameraBehavior.cs" />
-     <Compile Include="Assets\scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\scripts\PlayerAnimation.cs" />
+     <Compile Include="Assets\scripts\PlayerAttack.cs" />
      <Compile Include="Assets\scripts\PlayerCntrl.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/GIT/monster_hunter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

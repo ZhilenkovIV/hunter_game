@@ -9,11 +9,12 @@ public class PlayerAnimation : StateMachineBehaviour
     private float moveX;
     private float moveY;
     public bool ground;
+    public bool trigger;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
+
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
