@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class PlayerCntrl : MonoBehaviour
 {
-    Rigidbody2D rigidbody;
-    SpriteRenderer sprite;
+    private Rigidbody2D rb;
+    private SpriteRenderer sprite;
     public Vector2 speed;
-    public bool onGround = false;
+    private bool onGround = false;
 
     public Transform checkGroud;
+    public Transform areaAttack;
     public float checkRadius;
 
     public LayerMask layerGround;
     public int maxJumps = 1;
     private int jumps;
     private Animator animator;
-    public float moveX = 0;
-    public Transform areaAttack;
-    public bool animationAttack;
+    private float moveX = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>(); ;
-}
+        animator = GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -47,20 +46,29 @@ public class PlayerCntrl : MonoBehaviour
         }
 
         //rigidbody.velocity.Set(moveX * speed.x, rigidbody.velocity.y);
-        rigidbody.velocity = new Vector2(moveX * speed.x, rigidbody.velocity.y);
+        rb.velocity = new Vector2(moveX * speed.x, rb.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && jumps > 0) {
-            rigidbody.velocity = Vector2.up * speed.y;
+            rb.velocity = Vector2.up * speed.y;
+            onGround = false;
             jumps--;
         }
         if (Input.GetKeyUp(KeyCode.UpArrow)) {
-            rigidbody.velocity = new Vector2(moveX * speed.x, Mathf.Min(rigidbody.velocity.y, 0));
+            rb.velocity = new Vector2(moveX * speed.x, Mathf.Min(rb.velocity.y, 0));
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetTrigger("attack");
-           
+            if (sprite.flipX)
+            {
+                areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+            }
+            else {
+                areaAttack.localPosition = new Vector3( Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+            }
+            areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
+            areaAttack.GetComponent<Animator>().SetTrigger("attack");
         }
     }
 }

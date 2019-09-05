@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerArea : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
         
-        GetComponent<SpriteRenderer>().gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(GetComponentInParent<Animator>().get)
+        
     }
 }
