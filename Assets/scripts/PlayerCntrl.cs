@@ -11,15 +11,16 @@ public class PlayerCntrl : MonoBehaviour
     private bool onGround = false;
 
     public Transform checkGroud;
-    public Transform areaAttack;
+    public Rigidbody2D areaAttack;
     public float checkRadius;
 
     public LayerMask layerGround;
     public int maxJumps = 1;
-    private int jumps;
+    public int jumps;
     private Animator animator;
     private float moveX = 0;
     private bool blockControl = false;
+    private bool canGroundUpdate = true;
 
     UnityAction action;
 
@@ -38,12 +39,18 @@ public class PlayerCntrl : MonoBehaviour
         blockControl = false;
     }
 
+    void setCanGroundUpdate()
+    {
+        canGroundUpdate = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         onGround = Physics2D.OverlapCircle(checkGroud.position, checkRadius, layerGround);
         animator.SetBool("onGround", onGround);
-        if (onGround) {
+        if (canGroundUpdate && onGround)
+        {
             jumps = maxJumps;
         }
         if (!blockControl)
@@ -65,35 +72,39 @@ public class PlayerCntrl : MonoBehaviour
                 rb.velocity = Vector2.up * speed.y;
                 onGround = false;
                 jumps--;
+                canGroundUpdate = false;
+                Invoke("setCanGroundUpdate", 0.3f);
             }
             if (Input.GetKeyUp(KeyCode.UpArrow))
             {
                 rb.velocity = new Vector2(moveX * speed.x, Mathf.Min(rb.velocity.y, 0));
             }
 
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z) )
             {
                 blockControl = true;
-                Invoke("clearBlockControl", 1f);
+                Invoke("clearBlockControl", 0.3f);
 
                 areaAttack.gameObject.SetActive(true);
                 animator.SetTrigger("attack");
                 if (sprite.flipX)
                 {
-                    areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+
+                    //areaAttack.MovePosition(new Vector2(-Mathf.Abs(areaAttack.position.x), areaAttack.position.y));
+                    //areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+                    rb.velocity = Vector2.zero;
                 }
                 else
                 {
-                    areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+                    //areaAttack.MovePosition(new Vector2(-Mathf.Abs(areaAttack.position.x), areaAttack.position.y));
+                    //areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+                    rb.velocity = Vector2.zero;
                 }
                 areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
                 areaAttack.GetComponent<Animator>().SetTrigger("attack");
             }
-            rb.velocity = new Vector2(moveX * speed.x, rb.velocity.y);
         }
-        else {
-            rb.velocity = Vector2.zero;
-        }
+        rb.velocity = new Vector2(moveX * speed.x, rb.velocity.y);
 
     }
 }
