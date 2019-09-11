@@ -22,7 +22,25 @@ public class PlayerCntrl : MonoBehaviour
     private bool blockControl = false;
     private bool canGroundUpdate = true;
 
+    public bool isCollision = false;
+
     UnityAction action;
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.otherRigidbody.isKinematic)
+        {
+            isCollision = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.otherRigidbody.isKinematic)
+        {
+            isCollision = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -95,14 +113,12 @@ public class PlayerCntrl : MonoBehaviour
                     BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
                     BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
                     areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
-                    rb.velocity = Vector2.zero;
                 }
                 else
                 {
                     BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
                     BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
                     areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
-                    rb.velocity = Vector2.zero;
                 }
                 
                 areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
