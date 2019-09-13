@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 102938022}
   - component: {fileID: 102938021}
   - component: {fileID: 102938020}
+  - component: {fileID: 102938023}
   m_Layer: 8
   m_Name: arena
   m_TagString: Untagged
@@ -329,6 +330,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.31, y: 7.2}
   m_EdgeRadius: 0
+--- !u!114 &102938023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102938015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a79993d3540c714982ea0f0ded0c751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &256737450
 GameObject:
   m_ObjectHideFlags: 0
