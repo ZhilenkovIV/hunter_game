@@ -28,18 +28,16 @@ public class PlayerCntrl : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.otherRigidbody.isKinematic)
-        {
-            isCollision = true;
+        if (col.gameObject.layer == 10) {
+            Vector3 dir = (col.rigidbody.position - rb.position).normalized;
+            dir = dir * -1;
+            rb.velocity = dir * speed;
         }
     }
 
-    void OnCollisionExit2D(Collision2D col)
+    void OnCollisionExit2D(Collision2D other)
     {
-        if (col.otherRigidbody.isKinematic)
-        {
-            isCollision = false;
-        }
+
     }
 
     // Start is called before the first frame update
