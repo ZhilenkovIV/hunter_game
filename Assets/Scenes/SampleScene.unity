@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 256737455}
   - component: {fileID: 256737456}
   m_Layer: 10
-  m_Name: zombi_0
+  m_Name: zombi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -803,7 +803,8 @@ GameObject:
   - component: {fileID: 1628440019}
   - component: {fileID: 1628440021}
   - component: {fileID: 1628440020}
-  m_Layer: 9
+  - component: {fileID: 1628440023}
+  m_Layer: 12
   m_Name: areaAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -938,3 +939,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1628440023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1628440017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0bf412593fbc7d43a4c05a4e307b194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

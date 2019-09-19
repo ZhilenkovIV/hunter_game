@@ -32,6 +32,8 @@ public class PlayerCntrl : MonoBehaviour
             Vector3 dir = (col.rigidbody.position - rb.position).normalized;
             dir = dir * -1;
             rb.velocity = dir * speed;
+            blockControl = true;
+            Invoke("clearBlockControl", 0.3f);
         }
     }
 
