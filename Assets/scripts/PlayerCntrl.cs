@@ -62,6 +62,29 @@ public class PlayerCntrl : MonoBehaviour
         canGroundUpdate = true;
     }
 
+    IEnumerator startAttack() {
+        areaAttack.gameObject.SetActive(true);
+        areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
+        Animator animator = areaAttack.GetComponent<Animator>();
+        animator.SetTrigger("attack");
+        
+        if (sprite.flipX)
+        {
+            BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
+            BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
+            areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+        }
+        else
+        {
+            BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
+            BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
+            areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+        }
+        
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(areaAttack.gameObject.layer).length);
+        //areaAttack.gameObject.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -101,28 +124,14 @@ public class PlayerCntrl : MonoBehaviour
                 rb.velocity = new Vector2(moveX * speed.x, Mathf.Min(rb.velocity.y, 0));
             }
 
-            if (Input.GetKeyDown(KeyCode.Z) )
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 //blockControl = true;
                 //Invoke("clearBlockControl", 0.3f);
 
-                areaAttack.gameObject.SetActive(true);
                 animator.SetTrigger("attack");
-                if (sprite.flipX)
-                {
-                    BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-                    BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-                    areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
-                }
-                else
-                {
-                    BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-                    BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-                    areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
-                }
+                StartCoroutine(startAttack());
                 
-                areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
-                areaAttack.GetComponent<Animator>().SetTrigger("attack");
             }
         }
 
