@@ -11,7 +11,6 @@ public class PlayerCntrl : MonoBehaviour
     private bool onGround = false;
 
     public Transform checkGroud;
-    //public Transform areaAttack;
     public float checkRadius;
 
     public LayerMask layerGround;
@@ -66,27 +65,24 @@ public class PlayerCntrl : MonoBehaviour
         GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
         areaAttack.transform.parent = transform;
         areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
-        Animator animator = areaAttack.GetComponent<Animator>();
-        Vector3 localTransform = areaAttack.transform.localPosition;
+        Animator animatorAttack = areaAttack.GetComponent<Animator>();
+        BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
+        //areaAttack.GetComponent<SpriteRenderer>().size = areaBox.size;
+        areaAttack.transform.localScale = Vector3.one;
 
         if (sprite.flipX)
         {
             BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-            BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-            localTransform = new Vector3(-Mathf.Abs(localTransform.x), localTransform.y, localTransform.z);
+            areaAttack.transform.localPosition = new Vector3(-playerBox.size.x / 2 - areaBox.size.x / 2, 0, 0);
         }
         else
         {
             BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-            BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-            localTransform = new Vector3(Mathf.Abs(localTransform.x), localTransform.y, localTransform.z);
+            areaAttack.transform.localPosition = new Vector3( playerBox.size.x / 2 + areaBox.size.x / 2, 0, 0);
         }
-        areaAttack.transform.localPosition = localTransform;
-
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(areaAttack.gameObject.layer).length);
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(areaAttack.gameObject.layer).length);
+        
+        yield return new WaitForSeconds(animatorAttack.GetCurrentAnimatorStateInfo(0).length);
         Destroy(areaAttack);
-        //areaAttack.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
