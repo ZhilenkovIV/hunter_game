@@ -11,7 +11,7 @@ public class PlayerCntrl : MonoBehaviour
     private bool onGround = false;
 
     public Transform checkGroud;
-    public Transform areaAttack;
+    //public Transform areaAttack;
     public float checkRadius;
 
     public LayerMask layerGround;
@@ -23,6 +23,7 @@ public class PlayerCntrl : MonoBehaviour
     private bool canGroundUpdate = true;
 
     public bool isCollision = false;
+    public GameObject prefabAttack;
 
     UnityAction action;
 
@@ -48,7 +49,6 @@ public class PlayerCntrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        areaAttack.gameObject.SetActive(false);
         action = clearBlockControl;
     }
 
@@ -63,25 +63,29 @@ public class PlayerCntrl : MonoBehaviour
     }
 
     IEnumerator startAttack() {
-        areaAttack.gameObject.SetActive(true);
+        GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
+        areaAttack.transform.parent = transform;
         areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
         Animator animator = areaAttack.GetComponent<Animator>();
-        animator.SetTrigger("attack");
-        
+        Vector3 localTransform = areaAttack.transform.localPosition;
+
         if (sprite.flipX)
         {
             BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
             BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-            areaAttack.localPosition = new Vector3(-Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+            localTransform = new Vector3(-Mathf.Abs(localTransform.x), localTransform.y, localTransform.z);
         }
         else
         {
             BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
             BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-            areaAttack.localPosition = new Vector3(Mathf.Abs(areaAttack.localPosition.x), areaAttack.localPosition.y, areaAttack.localPosition.z);
+            localTransform = new Vector3(Mathf.Abs(localTransform.x), localTransform.y, localTransform.z);
         }
-        
+        areaAttack.transform.localPosition = localTransform;
+
+        Debug.Log(animator.GetCurrentAnimatorStateInfo(areaAttack.gameObject.layer).length);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(areaAttack.gameObject.layer).length);
+        Destroy(areaAttack);
         //areaAttack.gameObject.SetActive(false);
     }
 
