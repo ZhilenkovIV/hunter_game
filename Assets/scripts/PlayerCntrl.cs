@@ -64,11 +64,17 @@ public class PlayerCntrl : MonoBehaviour
     IEnumerator startAttack() {
         GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
         areaAttack.transform.parent = transform;
+
+        Collider2D thisCollider = GetComponent<BoxCollider2D>();
+        Collider2D areaCollider = areaAttack.GetComponent<BoxCollider2D>();
+        Physics2D.IgnoreCollision(thisCollider, areaCollider);
+
         areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
         Animator animatorAttack = areaAttack.GetComponent<Animator>();
         BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
         //areaAttack.GetComponent<SpriteRenderer>().size = areaBox.size;
         areaAttack.transform.localScale = Vector3.one;
+        
 
         if (sprite.flipX)
         {

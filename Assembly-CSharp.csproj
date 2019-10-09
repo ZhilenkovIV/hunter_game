@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\scripts\AttackScript.cs" />
     <Compile Include="Assets\scripts\CameraBehavior.cs" />
     <Compile Include="Assets\scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\scripts\PlayerCntrl.cs" />
