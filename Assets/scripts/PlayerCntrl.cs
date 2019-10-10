@@ -20,21 +20,35 @@ public class PlayerCntrl : MonoBehaviour
     private float moveX = 0;
     private bool blockControl = false;
     private bool canGroundUpdate = true;
+    private bool isImmunity = false;
 
     public bool isCollision = false;
     public GameObject prefabAttack;
+    private float timeImmunity = 2f;
 
     UnityAction action;
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.layer == 10) {
+        if (col.collider.tag.Equals("Enemy")) {
             Vector3 dir = (col.rigidbody.position - rb.position).normalized;
             dir = dir * -1;
             rb.velocity = dir * speed;
             blockControl = true;
+            isImmunity = true;
             Invoke("clearBlockControl", 0.3f);
+            sprite.color = Color.red;
+            Invoke("clearImmunity", timeImmunity);
         }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        /*Debug.Log("trigger");
+        if (isImmunity && col.tag.Equals("Enemy")) {
+            Debug.Log("ignore");
+            Physics2D.IgnoreCollision(col, GetComponent<BoxCollider2D>());
+        }*/
     }
 
     void OnCollisionExit2D(Collision2D other)
@@ -49,11 +63,18 @@ public class PlayerCntrl : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         action = clearBlockControl;
+        //GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
     void clearBlockControl()
     {
         blockControl = false;
+    }
+
+    void clearImmunity()
+    {
+        isImmunity = false;
+        sprite.color = Color.white;
     }
 
     void setCanGroundUpdate()
