@@ -37,7 +37,8 @@ public class PlayerCntrl : MonoBehaviour
             blockControl = true;
             isImmunity = true;
             Invoke("clearBlockControl", 0.3f);
-            sprite.color = Color.red;
+            sprite.color = Color.blue;
+            gameObject.layer = 13;
             Invoke("clearImmunity", timeImmunity);
         }
     }
@@ -74,6 +75,7 @@ public class PlayerCntrl : MonoBehaviour
     void clearImmunity()
     {
         isImmunity = false;
+        gameObject.layer = 9;
         sprite.color = Color.white;
     }
 
