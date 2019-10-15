@@ -18,7 +18,7 @@ public class PlayerCntrl : MonoBehaviour
     public int jumps;
     private Animator animator;
     private float moveX = 0;
-    private bool blockControl = false;
+    private bool blockControlFlag = false;
     private bool canGroundUpdate = true;
     private bool isImmunity = false;
 
@@ -31,16 +31,24 @@ public class PlayerCntrl : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         if (col.collider.tag.Equals("Enemy")) {
-            Vector3 dir = (col.rigidbody.position - rb.position).normalized;
-            dir = dir * -1;
-            rb.velocity = dir * speed;
-            blockControl = true;
+            rebound(col.rigidbody.position, new Vector2(1, 0.5f));
             isImmunity = true;
-            Invoke("clearBlockControl", 0.3f);
             sprite.color = Color.blue;
             gameObject.layer = 13;
             Invoke("clearImmunity", timeImmunity);
         }
+    }
+
+    public void blockControl(float time) {
+    }
+
+    public void rebound(Vector2 pointFrom, Vector2 power) {
+        Vector2 dir = (pointFrom - rb.position).normalized;
+        dir.x = dir.x * -1;
+        dir.y = 1;
+        rb.velocity = dir * speed * power;
+        blockControlFlag = true;
+        Invoke("clearBlockControl", 0.2f);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -64,12 +72,11 @@ public class PlayerCntrl : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         action = clearBlockControl;
-        //GetComponent<BoxCollider2D>().isTrigger = true;
     }
 
     void clearBlockControl()
     {
-        blockControl = false;
+        blockControlFlag = false;
     }
 
     void clearImmunity()
@@ -125,7 +132,7 @@ public class PlayerCntrl : MonoBehaviour
         }
 
 
-        if (!blockControl)
+        if (!blockControlFlag)
         {
             moveX = Input.GetAxis("Horizontal");
             rb.velocity = new Vector2(moveX * speed.x, rb.velocity.y);

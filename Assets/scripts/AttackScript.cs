@@ -15,12 +15,23 @@ public class AttackScript : MonoBehaviour
     {
         if (other.gameObject.tag.Equals(attackTag))
         {
+            Debug.Log("attack");
             Collider2D thisCollider = GetComponent<BoxCollider2D>();
             spriteRendOther = other.gameObject.GetComponent<SpriteRenderer>();
             spriteRendOther.color = Color.red;
             Invoke("returnColor", 0.2f);
+            PlayerCntrl script = GetComponentInParent<PlayerCntrl>();
+            if (script != null)
+            {
+                Debug.Log("script");
+                script.rebound(other.bounds.center, new Vector2(1.5f,0));
+            }
+            else {
+                Debug.Log("null pointer");
+            }
         }
     }
+
 
     void returnColor() {
         spriteRendOther.color = Color.white;
