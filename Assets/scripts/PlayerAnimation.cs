@@ -16,7 +16,6 @@ public class PlayerAnimation : StateMachineBehaviour
         if (stateInfo.IsName("attack"))
         {
             isAttack = true;
-            
         }
     }
 

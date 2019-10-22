@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackScript : MonoBehaviour
+public class AttackObjectScript : MonoBehaviour
 {
     public string attackTag;
+
     private SpriteRenderer spriteRendOther;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -23,11 +25,7 @@ public class AttackScript : MonoBehaviour
             PlayerCntrl script = GetComponentInParent<PlayerCntrl>();
             if (script != null)
             {
-                Debug.Log("script");
-                script.rebound(other.bounds.center, new Vector2(1.5f,0));
-            }
-            else {
-                Debug.Log("null pointer");
+                script.rebound(other.bounds.center, new Vector2(0.75f,0));
             }
         }
     }

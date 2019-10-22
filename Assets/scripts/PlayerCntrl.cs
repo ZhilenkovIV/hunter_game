@@ -8,7 +8,7 @@ public class PlayerCntrl : MonoBehaviour
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
     public Vector2 speed;
-    private bool onGround = false;
+    private bool onGround;
 
     public Transform checkGroud;
     public float checkRadius;
@@ -17,14 +17,11 @@ public class PlayerCntrl : MonoBehaviour
     public int maxJumps = 1;
     public int jumps;
     private Animator animator;
-    private float moveX = 0;
+    private float moveX;
     private bool blockControlFlag = false;
     private bool canGroundUpdate = true;
-    private bool isImmunity = false;
 
-    public bool isCollision = false;
-    public GameObject prefabAttack;
-    private float timeImmunity = 2f;
+    public float timeImmunity = 2f;
 
     UnityAction action;
 
@@ -32,7 +29,6 @@ public class PlayerCntrl : MonoBehaviour
     {
         if (col.collider.tag.Equals("Enemy")) {
             rebound(col.rigidbody.position, new Vector2(1, 0.5f));
-            isImmunity = true;
             sprite.color = Color.blue;
             gameObject.layer = 13;
             Invoke("clearImmunity", timeImmunity);
@@ -42,6 +38,8 @@ public class PlayerCntrl : MonoBehaviour
     public void blockControl(float time) {
     }
 
+    delegate IEnumerator blockFlag1();
+
     public void rebound(Vector2 pointFrom, Vector2 power) {
         Vector2 dir = (pointFrom - rb.position).normalized;
         dir.x = dir.x * -1;
@@ -49,15 +47,6 @@ public class PlayerCntrl : MonoBehaviour
         rb.velocity = dir * speed * power;
         blockControlFlag = true;
         Invoke("clearBlockControl", 0.2f);
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        /*Debug.Log("trigger");
-        if (isImmunity && col.tag.Equals("Enemy")) {
-            Debug.Log("ignore");
-            Physics2D.IgnoreCollision(col, GetComponent<BoxCollider2D>());
-        }*/
     }
 
     void OnCollisionExit2D(Collision2D other)
@@ -81,7 +70,6 @@ public class PlayerCntrl : MonoBehaviour
 
     void clearImmunity()
     {
-        isImmunity = false;
         gameObject.layer = 9;
         sprite.color = Color.white;
     }
@@ -91,35 +79,6 @@ public class PlayerCntrl : MonoBehaviour
         canGroundUpdate = true;
     }
 
-    IEnumerator startAttack() {
-        GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
-        areaAttack.transform.parent = transform;
-
-        Collider2D thisCollider = GetComponent<BoxCollider2D>();
-        Collider2D areaCollider = areaAttack.GetComponent<BoxCollider2D>();
-        Physics2D.IgnoreCollision(thisCollider, areaCollider);
-
-        areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
-        Animator animatorAttack = areaAttack.GetComponent<Animator>();
-        BoxCollider2D areaBox = areaAttack.GetComponent<BoxCollider2D>();
-        //areaAttack.GetComponent<SpriteRenderer>().size = areaBox.size;
-        areaAttack.transform.localScale = Vector3.one;
-        
-
-        if (sprite.flipX)
-        {
-            BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-            areaAttack.transform.localPosition = new Vector3(-playerBox.size.x / 2 - areaBox.size.x / 2, 0, 0);
-        }
-        else
-        {
-            BoxCollider2D playerBox = GetComponent<BoxCollider2D>();
-            areaAttack.transform.localPosition = new Vector3( playerBox.size.x / 2 + areaBox.size.x / 2, 0, 0);
-        }
-        
-        yield return new WaitForSeconds(animatorAttack.GetCurrentAnimatorStateInfo(0).length);
-        Destroy(areaAttack);
-    }
 
     // Update is called once per frame
     void Update()
@@ -162,12 +121,10 @@ public class PlayerCntrl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                //blockControl = true;
-                //Invoke("clearBlockControl", 0.3f);
-
-                animator.SetTrigger("attack");
-                StartCoroutine(startAttack());
-                
+                if (GetComponent<Attack>().attack())
+                {
+                    animator.SetTrigger("attack");
+                }
             }
         }
 
