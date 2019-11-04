@@ -7,7 +7,6 @@ public class Stroke : MonoBehaviour
     public float minPeriod;
     public GameObject prefabAttack;
 
-    public Vector2 size;
     public Vector2 offset;
 
     private HitArea.AttackAction attackAction;

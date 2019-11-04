@@ -43,7 +43,7 @@ public class PlayerCntrl : MonoBehaviour
         GetComponent<Stroke>().AddAttackAction((other)=> {
             MyObjectType typeOther = other.GetComponent<TakeDamage>().type;
             if (typeOther == MyObjectType.ENEMY) {
-                recoil(other, new Vector2(-0.7f, 0));
+                recoil(other, new Vector2(-0.5f, 0));
             }
         });
     }

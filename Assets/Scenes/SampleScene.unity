@@ -669,8 +669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 3
   colorImmunity: {r: 1, g: 0, b: 0, a: 1}
-  timeImmunity: 0.2
-  immunityLayer: 0
+  timeImmunity: 0.5
+  immunityLayer: 13
   type: 1
 --- !u!114 &256737458
 MonoBehaviour:
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   prefabAttack: {fileID: 7160250653996609692, guid: f6f0534a1cbbfa540b3df46b1c1677f5,
     type: 3}
   size: {x: 3, y: 3}
-  offset: {x: 4, y: 0}
+  offset: {x: 3.46, y: 0}
 --- !u!114 &808764364
 MonoBehaviour:
   m_ObjectHideFlags: 0
