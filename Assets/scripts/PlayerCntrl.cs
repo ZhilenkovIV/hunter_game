@@ -23,36 +23,15 @@ public class PlayerCntrl : MonoBehaviour
 
     public float timeImmunity = 2f;
 
-    UnityAction action;
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.collider.tag.Equals("Enemy")) {
-            rebound(col.rigidbody.position, new Vector2(1, 0.5f));
-            sprite.color = Color.blue;
-            gameObject.layer = 13;
-            Invoke("clearImmunity", timeImmunity);
-        }
-    }
-
-    public void blockControl(float time) {
-    }
-
-    delegate IEnumerator blockFlag1();
-
-    public void rebound(Vector2 pointFrom, Vector2 power) {
-        Vector2 dir = (pointFrom - rb.position).normalized;
-        dir.x = dir.x * -1;
+    private void recoil(GameObject other, Vector2 power) {
+        Vector2 pointFrom = other.transform.position;
+        Vector2 dir = (pointFrom - rb.position);
+        dir.x = (dir.x > 0) ? 1 : -1;
         dir.y = 1;
         rb.velocity = dir * speed * power;
-        blockControlFlag = true;
-        Invoke("clearBlockControl", 0.2f);
+        StartCoroutine(blockControl(0.2f));
     }
 
-    void OnCollisionExit2D(Collision2D other)
-    {
-
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +39,13 @@ public class PlayerCntrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        action = clearBlockControl;
+        GetComponent<TakeDamage>().AddDamageAction((other)=> recoil(other, new Vector2(-1, 0.5f)));
+        GetComponent<Stroke>().AddAttackAction((other)=> {
+            MyObjectType typeOther = other.GetComponent<TakeDamage>().type;
+            if (typeOther == MyObjectType.ENEMY) {
+                recoil(other, new Vector2(-0.7f, 0));
+            }
+        });
     }
 
     void clearBlockControl()
@@ -68,14 +53,15 @@ public class PlayerCntrl : MonoBehaviour
         blockControlFlag = false;
     }
 
-    void clearImmunity()
-    {
-        gameObject.layer = 9;
-        sprite.color = Color.white;
+    private IEnumerator blockControl(float time) {
+        blockControlFlag = true;
+        yield return new WaitForSeconds(time);
+        blockControlFlag = false;
     }
-
-    void setCanGroundUpdate()
+    private IEnumerator blockChangeCanJump(float time)
     {
+        canGroundUpdate = false;
+        yield return new WaitForSeconds(time);
         canGroundUpdate = true;
     }
 
@@ -111,8 +97,7 @@ public class PlayerCntrl : MonoBehaviour
                 rb.velocity = Vector2.up * speed.y;
                 onGround = false;
                 jumps--;
-                canGroundUpdate = false;
-                Invoke("setCanGroundUpdate", 0.3f);
+                StartCoroutine(blockChangeCanJump(0.3f));
             }
             if (Input.GetKeyUp(KeyCode.UpArrow))
             {
@@ -121,7 +106,7 @@ public class PlayerCntrl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Z))
             {
-                if (GetComponent<Attack>().attack())
+                if (GetComponent<Stroke>().attack())
                 {
                     animator.SetTrigger("attack");
                 }

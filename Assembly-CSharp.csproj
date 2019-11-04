@@ -63,13 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\scripts\Attack.cs" />
     <Compile Include="Assets\scripts\AttackObjectScript.cs" />
-    <Compile Include="Assets\scripts\CameraBehavior.cs" />
+    <Compile Include="Assets\scripts\DestructibleObjectScript.cs" />
+    <Compile Include="Assets\scripts\HitArea.cs" />
+    <Compile Include="Assets\scripts\MyObjectType.cs" />
     <Compile Include="Assets\scripts\PlayerAnimation.cs" />
     <Compile Include="Assets\scripts\PlayerCntrl.cs" />
+    <Compile Include="Assets\scripts\Stroke.cs" />
     <Compile Include="Assets\scripts\TakeDamage.cs" />
-    <Compile Include="Assets\scripts\ZombiBehavior.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/ivanzilenkov/GIT/monster_hunter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
