@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stroke : MonoBehaviour
 {
@@ -14,7 +15,6 @@ public class Stroke : MonoBehaviour
 
     IEnumerator startAttack(GameObject parent)
     {
-        
         GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
         areaAttack.transform.parent = parent.transform;
         areaAttack.GetComponent<HitArea>().AddAttackAction(attackAction);

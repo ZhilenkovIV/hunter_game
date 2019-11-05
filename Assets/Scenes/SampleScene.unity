@@ -1068,7 +1068,6 @@ MonoBehaviour:
   minPeriod: 1
   prefabAttack: {fileID: 7160250653996609692, guid: f6f0534a1cbbfa540b3df46b1c1677f5,
     type: 3}
-  size: {x: 3, y: 3}
   offset: {x: 3.46, y: 0}
 --- !u!114 &808764364
 MonoBehaviour:
