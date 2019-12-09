@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7160250653996609690}
   - component: {fileID: 7160250653996609691}
   - component: {fileID: 9217583141613837184}
+  - component: {fileID: 5172225418827223610}
   m_Layer: 12
   m_Name: areaAttack
   m_TagString: Untagged
@@ -115,3 +116,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitValue: 1
   size: {x: 5, y: 3}
+--- !u!114 &5172225418827223610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7160250653996609692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a308a290f694b9796cc3ca00d1f4ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0

@@ -8,7 +8,6 @@ public class TakeDamage : MonoBehaviour
     public float timeImmunity;
     private bool isImmunity;
     public int immunityLayer = -1;
-    public MyObjectType type = MyObjectType.OBJECT;
 
     public delegate void DamageAction(GameObject other);
     private DamageAction damageAction;
@@ -26,6 +25,13 @@ public class TakeDamage : MonoBehaviour
     }
 
     public bool damage(int hitValue, GameObject attackObject) {
+
+        if (attackObject.GetComponent<ObjectInfo>().type == MyObjectType.ENEMY &&
+            GetComponent<ObjectInfo>().type == MyObjectType.OBJECT)
+        {
+            return false;
+        }
+
         if (!isImmunity)
         {
             healthPoints -= hitValue;

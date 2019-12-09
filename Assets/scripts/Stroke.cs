@@ -17,7 +17,8 @@ public class Stroke : MonoBehaviour
     {
         GameObject areaAttack = Instantiate(prefabAttack, new Vector3(), Quaternion.identity);
         areaAttack.transform.parent = parent.transform;
-        areaAttack.GetComponent<HitArea>().AddAttackAction(attackAction);
+        areaAttack.GetComponent<HitArea>().AddHitAction(attackAction);
+        areaAttack.GetComponent<HitArea>().parent = transform;
 
         SpriteRenderer sprite = parent.GetComponent<SpriteRenderer>();
         areaAttack.GetComponent<SpriteRenderer>().flipX = sprite.flipX;
