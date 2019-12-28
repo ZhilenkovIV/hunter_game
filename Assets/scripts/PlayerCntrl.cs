@@ -11,14 +11,14 @@ public class PlayerCntrl : MonoBehaviour
 
     public float timeImmunity = 2f;
 
-    private void recoil(GameObject other, Vector2 power) {
+    private void recoil(GameObject other, Vector2 power, float timeBlock) {
         Vector2 pointFrom = other.transform.position;
         Vector2 dir = (pointFrom - rb.position);
         dir.x = (dir.x > 0) ? 1 : -1;
         dir.y = 1;
         PlayerMovement motion = GetComponent<PlayerMovement>();
         rb.velocity = dir * motion.speed * power;
-        motion.BlockMovement(0.2f);
+        motion.BlockMovement(timeBlock);
     }
 
 
@@ -28,11 +28,11 @@ public class PlayerCntrl : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        GetComponent<TakeDamage>().AddDamageAction((other)=> recoil(other, new Vector2(-1, 0.5f)));
+        GetComponent<TakeDamage>().AddDamageAction((other)=> recoil(other, new Vector2(-1f, 0.5f), 0.15f));
         GetComponent<Stroke>().AddAttackAction((other)=> {
             MyObjectType typeOther = other.GetComponent<ObjectInfo>().type;
             if (typeOther == MyObjectType.ENEMY) {
-                recoil(other, new Vector2(-1f, 0));
+                recoil(other, new Vector2(-1.2f, 0), 0.12f);
             }
         });
 	}

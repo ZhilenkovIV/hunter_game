@@ -32,6 +32,11 @@ public class TakeDamage : MonoBehaviour
             return false;
         }
 
+        if (attackObject.GetComponent<ObjectInfo>().type ==
+            GetComponent<ObjectInfo>().type) {
+            return false;
+        }
+
         if (!isImmunity)
         {
             healthPoints -= hitValue;
