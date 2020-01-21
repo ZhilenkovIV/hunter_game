@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     private bool canChange = true;
 
+    private bool oldFlipX;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         onGround |= (groundMask & (1 << collision.gameObject.layer)) != 0;
@@ -54,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
             float moveY = rb.velocity.y / speed.y;
             if (moveX != 0)
             {
+                //oldFlipX = sprite.flipX;
                 sprite.flipX = moveX < 0;
             }
             if (Input.GetKeyDown(KeyCode.UpArrow) && onGround)
