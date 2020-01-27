@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class GoToObject : MonoBehaviour
 {
-    public string followObjectTag;
-    private Rigidbody2D followObject;
+    public string targetTag;
+    private Rigidbody2D targetObject;
     public Vector2 speed;
     public Vector2 acceleration;
     private Rigidbody2D rb;
     private bool canChange = true;
     public Vector2 visibleRadius;
-    public Vector2 minDistance;
+    public float minDistance;
+    public float persecutionRadius;
     private SpriteRenderer sprite;
-    public bool onlyX = true;
     private Vector2 currentSpeed;
 
+    private static float ERROR = 0.5f;
+
+    private bool targetIsVisible;
+    private Vector2 standPosition;
+    private bool isReturning;
+    
 
     public void recoil(GameObject other, Vector2 power, float timeBlockMotion)
     {
@@ -32,9 +38,10 @@ public class GoToObject : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        standPosition = rb.position;
         sprite = GetComponent<SpriteRenderer>();
-        GameObject objectGO = GameObject.FindGameObjectWithTag(followObjectTag);
-        followObject = objectGO.GetComponent<Rigidbody2D>();
+        GameObject objectGO = GameObject.FindGameObjectWithTag(targetTag);
+        targetObject = objectGO.GetComponent<Rigidbody2D>();
         if (acceleration.Equals(Vector2.zero)) {
             acceleration = new Vector2(100, 100);
         }
@@ -54,24 +61,23 @@ public class GoToObject : MonoBehaviour
         StartCoroutine(BlockMovementEnum(time));
     }
 
-    private void motionToPoint(Vector2 point) {
+    private void motionToDirection(Vector2 distance) {
         float delta = Time.deltaTime;
-        Vector2 distance = point - rb.position;
         sprite.flipX = distance.x < 0;
         float signX = Mathf.Sign(distance.x);
         currentSpeed.x += acceleration.x * signX * delta;
         currentSpeed.x = (Mathf.Abs(currentSpeed.x) > speed.x) ? speed.x * signX : currentSpeed.x;
-        if (!onlyX)
-        {
-            float signY = Mathf.Sign(distance.y);
-            currentSpeed.y += acceleration.y * Mathf.Sign(distance.y) * delta;
-            currentSpeed.y = (Mathf.Abs(currentSpeed.y) > speed.y) ? speed.y * signY : currentSpeed.y;
-        }
+        float signY = Mathf.Sign(distance.y);
+        currentSpeed.y += acceleration.y * Mathf.Sign(distance.y) * delta;
+        currentSpeed.y = (Mathf.Abs(currentSpeed.y) > speed.y) ? speed.y * signY : currentSpeed.y;
         rb.velocity = currentSpeed;
     }
 
     private void brake()
     {
+        if (rb.velocity == Vector2.zero) {
+            return;
+        }
         float delta = Time.deltaTime;
         float signX = Mathf.Sign(currentSpeed.x);
         currentSpeed.x -= acceleration.x * signX * delta;
@@ -80,15 +86,11 @@ public class GoToObject : MonoBehaviour
             currentSpeed.x = 0;
         }
 
-
-        if (!onlyX)
+        float signY = Mathf.Sign(currentSpeed.y);
+        currentSpeed.y -= acceleration.y * signY * delta;
+        if (signY != Mathf.Sign(currentSpeed.y))
         {
-            float signY = Mathf.Sign(currentSpeed.y);
-            currentSpeed.y -= acceleration.y * signY * delta;
-            if (signY != Mathf.Sign(currentSpeed.y))
-            {
-                currentSpeed.y = 0;
-            }
+            currentSpeed.y = 0;
         }
 
         rb.velocity = currentSpeed;
@@ -99,22 +101,38 @@ public class GoToObject : MonoBehaviour
     {
         if (canChange)
         {
-            Vector2 distance = followObject.position - rb.position;
-
-            bool condition1 = Mathf.Abs(distance.x) < visibleRadius.x &&
-                Mathf.Abs(distance.y) < visibleRadius.y;
-            bool condition2 = Mathf.Abs(distance.x) > minDistance.x ||
-                Mathf.Abs(distance.y) > minDistance.y;
-            if (condition1 && condition2)
+            Vector2 distanceTarget = targetObject.position - rb.position;
+            Vector2 distanceStand = standPosition - rb.position;
+            if (Mathf.Abs(distanceTarget.x) < visibleRadius.x &&
+                Mathf.Abs(distanceTarget.y) < visibleRadius.y) {
+                targetIsVisible = true;
+            }
+            else if (distanceStand.magnitude > persecutionRadius)
             {
-                motionToPoint(followObject.position);
+                targetIsVisible = false;
+                isReturning = true;
+            }
+
+            Vector2 currentDistance;
+            if (!targetIsVisible || isReturning)
+            {
+                currentDistance = distanceStand;
             }
             else {
-                if (rb.velocity != Vector2.zero)
-                {
-                    brake();
-                }
+                currentDistance = distanceTarget;
+            }
 
+            if (currentDistance.magnitude < ERROR)
+            {
+                brake();
+                isReturning = false;
+            }
+            else
+            {
+                if (currentDistance.magnitude > minDistance)
+                {
+                    motionToDirection(currentDistance);
+                }
             }
         }
     }

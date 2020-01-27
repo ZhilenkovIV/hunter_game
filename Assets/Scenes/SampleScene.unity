@@ -1233,6 +1233,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: zombi
       objectReference: {fileID: 0}
+    - target: {fileID: 992076308953077797, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 992076308953077794, guid: 34afe6b4d218447b8a4d73daa4cc933e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1287,6 +1292,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: targetTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: minDistance.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: minDistance.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: persecutionRadius.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: persecutionRadius.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1497919919513721613, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: persecutionRadius
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34afe6b4d218447b8a4d73daa4cc933e, type: 3}
@@ -1463,6 +1498,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731632504688416359, guid: acf0a20188cba4a17a7a8ce730906683,
+        type: 3}
+      propertyPath: targetTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731632504688416359, guid: acf0a20188cba4a17a7a8ce730906683,
+        type: 3}
+      propertyPath: persecutionRadius.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731632504688416359, guid: acf0a20188cba4a17a7a8ce730906683,
+        type: 3}
+      propertyPath: persecutionRadius.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731632504688416359, guid: acf0a20188cba4a17a7a8ce730906683,
+        type: 3}
+      propertyPath: minDistance.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5731632504688416359, guid: acf0a20188cba4a17a7a8ce730906683,
+        type: 3}
+      propertyPath: persecutionRadius
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acf0a20188cba4a17a7a8ce730906683, type: 3}
