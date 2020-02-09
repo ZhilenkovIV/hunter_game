@@ -7,6 +7,7 @@ public class TakeDamage : MonoBehaviour
     public Color colorImmunity;
     public float timeImmunity;
     private bool isImmunity;
+    private bool isDead;
     public int immunityLayer = -1;
 
     public delegate void DamageAction(GameObject other);
@@ -45,7 +46,11 @@ public class TakeDamage : MonoBehaviour
                 StartCoroutine(immunity(attackObject));
             }
             else {
-                deadAction(gameObject);
+                if (!isDead)
+                {
+                    deadAction(gameObject);
+                    isDead = true;
+                }
             }
             return true;
         }
@@ -62,6 +67,11 @@ public class TakeDamage : MonoBehaviour
     public void SetDeadAction(DamageAction action)
     {
         deadAction = action;
+    }
+
+    public void AddDeadAction(DamageAction action)
+    {
+        deadAction += action;
     }
 
     private IEnumerator immunity(GameObject other) {

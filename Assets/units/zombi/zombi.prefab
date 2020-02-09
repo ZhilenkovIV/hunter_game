@@ -149,7 +149,7 @@ Rigidbody2D:
   m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 2
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 230432797f9a64cb2b8ec4283aa48c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoints: 3
+  healthPoints: 2
   colorImmunity: {r: 1, g: 0, b: 0, a: 1}
   timeImmunity: 0.5
   immunityLayer: 13
@@ -211,12 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf12e678f34d4448a1fbd96296f352b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followObjectTag: Player
+  targetTag: Player
   speed: {x: 3, y: 0}
   acceleration: {x: 6, y: 0}
   visibleRadius: {x: 4, y: 2.5}
-  minDistance: {x: 0, y: 0}
-  onlyX: 1
+  minDistance: 0
+  persecutionRadius: 6
 --- !u!114 &992076308953077820
 MonoBehaviour:
   m_ObjectHideFlags: 0

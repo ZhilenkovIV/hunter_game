@@ -208,12 +208,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faf12e678f34d4448a1fbd96296f352b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followObjectTag: Player
+  targetTag: Player
   speed: {x: 3, y: 3}
   acceleration: {x: 10, y: 10}
   visibleRadius: {x: 6, y: 6}
-  minDistance: {x: 0, y: 0}
-  onlyX: 0
+  minDistance: 0
+  persecutionRadius: 6
 --- !u!114 &5731632504688416352
 MonoBehaviour:
   m_ObjectHideFlags: 0
