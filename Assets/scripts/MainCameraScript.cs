@@ -6,12 +6,12 @@ public class MainCameraScript : MonoBehaviour
 {
     public Transform player;
     public Vector2 speed;
-    private Camera camera;
+    private Camera mainCamera;
 
     // Start is called before the first frame update
     void Start()
     {
-        camera = GetComponent<Camera>();
+        mainCamera = GetComponent<Camera>();
     }
 
     // Update is called once per frame
