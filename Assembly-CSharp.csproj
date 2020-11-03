@@ -63,12 +63,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\scripts\EnemyHP.cs" />
+    <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\DealDamage.cs" />
+    <Compile Include="Assets\scripts\DestroyableSceneObject.cs" />
     <Compile Include="Assets\scripts\Fight2D.cs" />
-    <Compile Include="Assets\scripts\MainCameraScript.cs" />
-    <Compile Include="Assets\scripts\PlayerAnimation.cs" />
+    <Compile Include="Assets\scripts\Jump.cs" />
+    <Compile Include="Assets\scripts\PatrolBehavior.cs" />
+    <Compile Include="Assets\scripts\PlayerAnimator.cs" />
     <Compile Include="Assets\scripts\PlayerController.cs" />
-    <Compile Include="Assets\units\player\animation\PlayerAnimator.cs" />
+    <Compile Include="Assets\scripts\PlayerInterface.cs" />
+    <Compile Include="Assets\scripts\PlayerStroke.cs" />
+    <Compile Include="Assets\scripts\SceneInfo.cs" />
+    <Compile Include="Assets\scripts\TakeDamage.cs" />
+    <Compile Include="Assets\scripts\ZombiController.cs" />
+    <Compile Include="Assets\scripts\ZombiPunch.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/ivanzilenkov/GIT/monster_hunter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

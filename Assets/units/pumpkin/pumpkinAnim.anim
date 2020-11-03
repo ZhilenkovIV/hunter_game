@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerJump1
+  m_Name: pumpkinAnim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,16 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 444702640956841479, guid: 8fabc87c8b5594b0582f4788406ba6d7,
+      value: {fileID: -2226346632819538797, guid: 9c8420e02e4c24734ae761670aca8493,
+        type: 3}
+    - time: 0.083333336
+      value: {fileID: -4915702703930839905, guid: 9c8420e02e4c24734ae761670aca8493,
+        type: 3}
+    - time: 0.16666667
+      value: {fileID: 1184209409754768585, guid: 9c8420e02e4c24734ae761670aca8493,
+        type: 3}
+    - time: 0.25
+      value: {fileID: -8664615004880051319, guid: 9c8420e02e4c24734ae761670aca8493,
         type: 3}
     attribute: m_Sprite
     path: 
@@ -41,18 +50,21 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 444702640956841479, guid: 8fabc87c8b5594b0582f4788406ba6d7, type: 3}
+    - {fileID: -2226346632819538797, guid: 9c8420e02e4c24734ae761670aca8493, type: 3}
+    - {fileID: -4915702703930839905, guid: 9c8420e02e4c24734ae761670aca8493, type: 3}
+    - {fileID: 1184209409754768585, guid: 9c8420e02e4c24734ae761670aca8493, type: 3}
+    - {fileID: -8664615004880051319, guid: 9c8420e02e4c24734ae761670aca8493, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.083333336
+    m_StopTime: 0.33333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0

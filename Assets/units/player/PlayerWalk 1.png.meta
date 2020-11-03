@@ -1,37 +1,31 @@
 fileFormatVersion: 2
-guid: 3c0acb51048af479a80fe9dc37569b82
+guid: 865e1d9b400c545bdb70bb265105bdbc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7221865514770959421
-    second: PlayerWalk_0
+      213: -7822187939112308718
+    second: PlayerWalk 1_0
   - first:
-      213: 7109459470101515711
-    second: PlayerWalk_1
+      213: -3860411240149639480
+    second: PlayerWalk 1_1
   - first:
-      213: 1520192549975761081
-    second: PlayerWalk_2
+      213: -2851022175566793745
+    second: PlayerWalk 1_2
   - first:
-      213: 6710542926590696780
-    second: PlayerWalk_3
+      213: -6924112905436546886
+    second: PlayerWalk 1_3
   - first:
-      213: 8961752267417923234
-    second: PlayerWalk_4
+      213: -1405881653860582592
+    second: PlayerWalk 1_4
   - first:
-      213: -9169092748704697354
-    second: PlayerWalk_5
+      213: -4593310615049210041
+    second: PlayerWalk 1_5
   - first:
-      213: -8331125957867574049
-    second: PlayerWalk_6
+      213: 4034947554697636129
+    second: PlayerWalk 1_6
   - first:
-      213: -3910178557780502947
-    second: PlayerWalk_7
-  - first:
-      213: 7180886126232182788
-    second: PlayerWalk_8
-  - first:
-      213: -4682598717862603235
-    second: PlayerWalk_9
+      213: 450201448223967247
+    second: PlayerWalk 1_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -116,211 +110,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerWalk_0
+      name: PlayerWalk 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 800
-        width: 600
-        height: 800
+        y: 801
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a80b433aa947048d99f9ba2cb3b47650
-      internalID: -7221865514770959421
+      spriteID: eea8c19905400455c9668e01be12afd7
+      internalID: -7822187939112308718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_1
+      name: PlayerWalk 1_1
       rect:
         serializedVersion: 2
-        x: 600
-        y: 800
-        width: 600
-        height: 800
+        x: 599
+        y: 801
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffe842dd199f147409a3a8ce3ae16398
-      internalID: 7109459470101515711
+      spriteID: 2c1ff5cadd6e94e12959af11f5f56b8b
+      internalID: -3860411240149639480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_2
+      name: PlayerWalk 1_2
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 800
-        width: 600
-        height: 800
+        x: 1198
+        y: 801
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0d49f97f27b546d989086cf76e159a7
-      internalID: 1520192549975761081
+      spriteID: 38ab18c34032848f6a3b0dce1fd20468
+      internalID: -2851022175566793745
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_3
+      name: PlayerWalk 1_3
       rect:
         serializedVersion: 2
-        x: 1800
-        y: 800
-        width: 600
-        height: 800
+        x: 1797
+        y: 801
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd47c61cc6ca248d094c6deafc5a6076
-      internalID: 6710542926590696780
+      spriteID: 2ac203669977e4387ba0831e6073b9d2
+      internalID: -6924112905436546886
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_4
-      rect:
-        serializedVersion: 2
-        x: 2400
-        y: 800
-        width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1ba56d73850ad420fbdc6c0916a78be8
-      internalID: 8961752267417923234
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWalk_5
+      name: PlayerWalk 1_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 600
-        height: 800
+        y: 2
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01b45f1b9d13c433f9ad9e39d3195234
-      internalID: -9169092748704697354
+      spriteID: 9608a70e62ae84620b95d84ac9fda189
+      internalID: -1405881653860582592
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_6
+      name: PlayerWalk 1_5
       rect:
         serializedVersion: 2
-        x: 600
-        y: 0
-        width: 600
-        height: 800
+        x: 599
+        y: 2
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d212d22cd55804abda3782f240e1385c
-      internalID: -8331125957867574049
+      spriteID: 275bb6c34defb4454ba248788f0a20a7
+      internalID: -4593310615049210041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_7
+      name: PlayerWalk 1_6
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 0
-        width: 600
-        height: 800
+        x: 1198
+        y: 2
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6a15b3e8d91e4f53ab67f50a207fa01
-      internalID: -3910178557780502947
+      spriteID: 4c079682504354c0790466c3a7fb67a3
+      internalID: 4034947554697636129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_8
+      name: PlayerWalk 1_7
       rect:
         serializedVersion: 2
-        x: 1800
-        y: 0
-        width: 600
-        height: 800
+        x: 1797
+        y: 2
+        width: 599
+        height: 799
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2aa03521e294472e8ee1591d3af2dde
-      internalID: 7180886126232182788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWalk_9
-      rect:
-        serializedVersion: 2
-        x: 2400
-        y: 0
-        width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 181e517700f9c4d6eaa79ec956a25607
-      internalID: -4682598717862603235
+      spriteID: fa4f8835e2b5f4f33806d018f7615248
+      internalID: 450201448223967247
       vertices: []
       indices: 
       edges: []

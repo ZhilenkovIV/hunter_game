@@ -1,37 +1,31 @@
 fileFormatVersion: 2
-guid: 3c0acb51048af479a80fe9dc37569b82
+guid: 717e94727d37344b28a7ee8ac63a9f45
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7221865514770959421
-    second: PlayerWalk_0
+      213: 5113964565019830915
+    second: zombi 2_0
   - first:
-      213: 7109459470101515711
-    second: PlayerWalk_1
+      213: -62382442802375113
+    second: zombi 2_1
   - first:
-      213: 1520192549975761081
-    second: PlayerWalk_2
+      213: 2599005135776802214
+    second: zombi 2_2
   - first:
-      213: 6710542926590696780
-    second: PlayerWalk_3
+      213: 990665454200365201
+    second: zombi 2_3
   - first:
-      213: 8961752267417923234
-    second: PlayerWalk_4
+      213: -7268537975536907401
+    second: zombi 2_4
   - first:
-      213: -9169092748704697354
-    second: PlayerWalk_5
+      213: -957395539634048200
+    second: zombi 2_5
   - first:
-      213: -8331125957867574049
-    second: PlayerWalk_6
+      213: 6695199252270456564
+    second: zombi 2_6
   - first:
-      213: -3910178557780502947
-    second: PlayerWalk_7
-  - first:
-      213: 7180886126232182788
-    second: PlayerWalk_8
-  - first:
-      213: -4682598717862603235
-    second: PlayerWalk_9
+      213: -6305086474196683442
+    second: zombi 2_7
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -116,211 +110,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PlayerWalk_0
+      name: zombi 2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 800
-        width: 600
-        height: 800
+        x: 138
+        y: 1599
+        width: 365
+        height: 801
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a80b433aa947048d99f9ba2cb3b47650
-      internalID: -7221865514770959421
+      spriteID: 92913f6f27b5f4e8b8ec5e270aee3b2b
+      internalID: 5113964565019830915
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_1
+      name: zombi 2_1
       rect:
         serializedVersion: 2
-        x: 600
-        y: 800
-        width: 600
-        height: 800
+        x: 722
+        y: 1599
+        width: 448
+        height: 801
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ffe842dd199f147409a3a8ce3ae16398
-      internalID: 7109459470101515711
+      spriteID: afa30e433b2ee4ffe833e22ba6ebe0b9
+      internalID: -62382442802375113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_2
+      name: zombi 2_2
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 800
-        width: 600
-        height: 800
+        x: 1204
+        y: 1599
+        width: 406
+        height: 790
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0d49f97f27b546d989086cf76e159a7
-      internalID: 1520192549975761081
+      spriteID: 6287514cfc6a8404b9e833483e0f10a9
+      internalID: 2599005135776802214
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_3
+      name: zombi 2_3
       rect:
         serializedVersion: 2
-        x: 1800
-        y: 800
-        width: 600
-        height: 800
+        x: 142
+        y: 799
+        width: 460
+        height: 745
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd47c61cc6ca248d094c6deafc5a6076
-      internalID: 6710542926590696780
+      spriteID: 780d9109b314744a8bdd92ada50876c3
+      internalID: 990665454200365201
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_4
+      name: zombi 2_4
       rect:
         serializedVersion: 2
-        x: 2400
-        y: 800
-        width: 600
-        height: 800
+        x: 738
+        y: 799
+        width: 365
+        height: 745
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ba56d73850ad420fbdc6c0916a78be8
-      internalID: 8961752267417923234
+      spriteID: 6cc5979abbd794a83a23c0bbb00f70af
+      internalID: -7268537975536907401
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_5
+      name: zombi 2_5
       rect:
         serializedVersion: 2
-        x: 0
+        x: 1335
+        y: 799
+        width: 366
+        height: 704
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6284e0a81cacd4c5d91ecf8a1096f860
+      internalID: -957395539634048200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombi 2_6
+      rect:
+        serializedVersion: 2
+        x: 144
         y: 0
-        width: 600
-        height: 800
+        width: 365
+        height: 718
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01b45f1b9d13c433f9ad9e39d3195234
-      internalID: -9169092748704697354
+      spriteID: cfab43cce430944e0812f0eb58a6cb60
+      internalID: 6695199252270456564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PlayerWalk_6
+      name: zombi 2_7
       rect:
         serializedVersion: 2
-        x: 600
+        x: 747
         y: 0
-        width: 600
-        height: 800
+        width: 366
+        height: 758
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d212d22cd55804abda3782f240e1385c
-      internalID: -8331125957867574049
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWalk_7
-      rect:
-        serializedVersion: 2
-        x: 1200
-        y: 0
-        width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6a15b3e8d91e4f53ab67f50a207fa01
-      internalID: -3910178557780502947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWalk_8
-      rect:
-        serializedVersion: 2
-        x: 1800
-        y: 0
-        width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e2aa03521e294472e8ee1591d3af2dde
-      internalID: 7180886126232182788
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWalk_9
-      rect:
-        serializedVersion: 2
-        x: 2400
-        y: 0
-        width: 600
-        height: 800
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 181e517700f9c4d6eaa79ec956a25607
-      internalID: -4682598717862603235
+      spriteID: 026a7a4ab71a649929494f86a1d9c380
+      internalID: -6305086474196683442
       vertices: []
       indices: 
       edges: []

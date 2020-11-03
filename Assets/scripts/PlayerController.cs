@@ -4,34 +4,49 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private SpriteRenderer sprite;
-    private Animator anim;
 
-    public Transform stroke;
-    public float strokeRadius;
+    private KeyCode JumpKey = KeyCode.UpArrow;
+    private Rigidbody2D rb;
+    private Animator anim;
 
     public float maxSpeed = 10f;
     //переменная для определения направления персонажа вправо/влево
     private bool isFacingRight = true;
 
     //находится ли персонаж на земле или в прыжке?
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     //ссылка на компонент Transform объекта
     //для определения соприкосновения с землей
     public Transform groundCheck;
     //радиус определения соприкосновения с землей
-    private float groundRadius = 0.2f;
+    private float groundRadius = 0.1f;
     //ссылка на слой, представляющий землю
     public LayerMask whatIsGround;
+    public bool canMove = true;
 
-    public Vector2 speedTest;
+    public IEnumerator disabledControl(float delta) {
+        canMove = false;
+        yield return new WaitForSeconds(delta);
+        canMove = true;
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        GetComponent<TakeDamage>().damageAction = (n) =>
+        {
+            if (canMove)
+            {
+                Fight2D.recoil(rb, n.GetComponent<Rigidbody2D>().position, 15);
+                StartCoroutine(disabledControl(0.1f));
+            }
+        };
+        //если персонаж на земле и нажат пробел...
+        GetComponent<Jump>().trigger = () => isGrounded && Input.GetKeyDown(JumpKey) && canMove;
+        GetComponent<Jump>().stopJump = () => !Input.GetKey(JumpKey);
     }
 
     /// Выполняем действия в методе FixedUpdate, т. к. в компоненте Animator персонажа
@@ -55,15 +70,18 @@ public class PlayerController : MonoBehaviour
 
         //обращаемся к компоненту персонажа RigidBody2D. задаем ему скорость по оси Х, 
         //равную значению оси Х умноженное на значение макс. скорости
-        rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
-        speedTest = rb.velocity;
+        if (canMove)
+        {
+            rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
+        }
+        //rb.AddForce(new Vector2(move * maxSpeed, 0));
         //если персонаж в прыжке - выход из метода, чтобы не выполнялись действия, связанные с бегом
         //if (!isGrounded)
         //    return;
 
         //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.
         //приэтом нам нужен модуль значения
-        anim.SetFloat("Speed", Mathf.Abs(move));
+        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
 
         //если нажали клавишу для перемещения вправо, а персонаж направлен влево
         if (move > 0 && !isFacingRight)
@@ -72,24 +90,11 @@ public class PlayerController : MonoBehaviour
         //обратная ситуация. отражаем персонажа влево
         else if (move < 0 && isFacingRight)
             Flip();
+
     }
 
     private void Update()
     {
-        //если персонаж на земле и нажат пробел...
-        if (isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            //устанавливаем в аниматоре переменную в false
-            anim.SetBool("Ground", false);
-            //прикладываем силу вверх, чтобы персонаж подпрыгнул
-            rb.AddForce(new Vector2(0, 1000));
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            anim.SetTrigger("Attack");
-            
-        }
     }
 
     /// <summary>
