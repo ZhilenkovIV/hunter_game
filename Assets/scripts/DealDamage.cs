@@ -26,7 +26,7 @@ public class DealDamage : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, hitLayer);
         foreach (Collider2D hit in colliders)
         {
-            if (hit.GetComponent<TakeDamage>())
+            if (!hit.GetComponent<TakeDamage>().isImmunuted)
             {
                 hit.GetComponent<TakeDamage>().damage(this);
                 attackPass(hit.transform);

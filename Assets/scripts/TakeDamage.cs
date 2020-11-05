@@ -11,13 +11,16 @@ public class TakeDamage : MonoBehaviour
     public float immunityTime;
     public Color immunityColor = Color.red;
     private int unitLayer;
+    public bool isImmunuted = false;
 
     private IEnumerator immunity(float time) {
         GetComponent<SpriteRenderer>().color = immunityColor;
         gameObject.layer = 13;
+        isImmunuted = true;
         yield return new WaitForSeconds(time);
         GetComponent<SpriteRenderer>().color = Color.white;
         gameObject.layer = unitLayer;
+        isImmunuted = false;
     }
 
     public float hp = 1;
