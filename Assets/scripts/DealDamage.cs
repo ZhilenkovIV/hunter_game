@@ -11,8 +11,7 @@ public class DealDamage : MonoBehaviour
     public float period;
     public float delay;
     private bool canAttack = true;
-
-    public bool isActive;
+    public bool isActive = true;
 
 
     virtual public bool trigger() { return false; }

@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     //ссылка на слой, представляющий землю
     public LayerMask whatIsGround;
     public bool canMove = true;
+    public bool canUseLamp = false;
+
 
     public IEnumerator disabledControl(float delta) {
         canMove = false;
@@ -49,6 +51,16 @@ public class PlayerController : MonoBehaviour
         //если персонаж на земле и нажат пробел...
         GetComponent<Jump>().trigger = () => isGrounded && Input.GetKeyDown(JumpKey) && canMove;
         GetComponent<Jump>().stopJump = () => !Input.GetKey(JumpKey);
+
+        EventPickUp.PickUp += (s) =>
+        {
+            switch (s)
+            {
+                case "lamp":
+                    canUseLamp = true;
+                    break;
+            }
+        };
     }
 
     /// Выполняем действия в методе FixedUpdate, т. к. в компоненте Animator персонажа
@@ -97,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)) {
+        if (canUseLamp && Input.GetKeyDown(KeyCode.C)) {
             lamp.SetActive(!lamp.activeSelf);
             GetComponent<Jump>().enabled = !lamp.activeSelf;
             stroke.GetComponent<PlayerStroke>().isActive = !lamp.activeSelf;
