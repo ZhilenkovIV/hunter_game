@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     //ссылка на компонент Transform объекта
     //для определения соприкосновения с землей
     public Transform groundCheck;
+    public GameObject lamp;
+    public GameObject stroke;
     //радиус определения соприкосновения с землей
     private float groundRadius = 0.1f;
     //ссылка на слой, представляющий землю
@@ -95,6 +97,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            lamp.SetActive(!lamp.activeSelf);
+            GetComponent<Jump>().enabled = !lamp.activeSelf;
+            stroke.GetComponent<PlayerStroke>().isActive = !lamp.activeSelf;
+        }  
     }
 
     /// <summary>
@@ -110,5 +117,10 @@ public class PlayerController : MonoBehaviour
         theScale.x *= -1;
         //задаем новый размер персонажа, равный старому, но зеркально отраженный
         transform.localScale = theScale;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
     }
 }

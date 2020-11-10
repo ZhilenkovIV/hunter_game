@@ -10,7 +10,10 @@ public class DealDamage : MonoBehaviour
     public float attackRadius = 2.5f;
     public float period;
     public float delay;
-    protected bool canAttack = true;
+    private bool canAttack = true;
+
+    public bool isActive;
+
 
     virtual public bool trigger() { return false; }
 
@@ -23,10 +26,12 @@ public class DealDamage : MonoBehaviour
         canAttack = false;
         attack();
         yield return new WaitForSeconds(delay);
+        //yield return currentTime < delay;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, hitLayer);
         foreach (Collider2D hit in colliders)
         {
-            if (!hit.GetComponent<TakeDamage>().isImmunuted)
+            TakeDamage target = hit.GetComponent<TakeDamage>();
+            if (target!= null && !target.isImmunuted)
             {
                 hit.GetComponent<TakeDamage>().damage(this);
                 attackPass(hit.transform);
@@ -41,7 +46,7 @@ public class DealDamage : MonoBehaviour
 
     void Update()
     {
-        if (trigger() && canAttack)
+        if (trigger() && canAttack && isActive)
         {
             StartCoroutine(action());
         }

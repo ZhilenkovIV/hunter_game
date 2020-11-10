@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\CameraController.cs" />
+    <Compile Include="Assets\scripts\CombatClash.cs" />
     <Compile Include="Assets\scripts\DealDamage.cs" />
     <Compile Include="Assets\scripts\DestroyableSceneObject.cs" />
     <Compile Include="Assets\scripts\Fight2D.cs" />
