@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class Pickupable : MonoBehaviour
 {
-    public string thingName;
-    public LayerMask canPickUp;
+    public EventPickUp.ThingType thingName;
+    private LayerMask playerMask;
     // Start is called before the first frame update
 
     void Start()
     {
-        //target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
+        playerMask = LayerMask.GetMask("Player");
     }
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (GetComponent<BoxCollider2D>().IsTouchingLayers(canPickUp)) {
+        if (GetComponent<Collider2D>().IsTouchingLayers(playerMask)) {
             EventPickUp.notify(thingName);
             Destroy(gameObject);
         }

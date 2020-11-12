@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     //ссылка на компонент Transform объекта
     //для определения соприкосновения с землей
-    public Transform groundCheck;
+    private Transform groundCheck;
     public GameObject lamp;
     public GameObject stroke;
     //радиус определения соприкосновения с землей
@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public bool canMove = true;
     public bool canUseLamp = false;
+
+    public System.Action Grounded;
 
 
     public IEnumerator disabledControl(float delta) {
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        groundCheck = transform.Find("GroundCheck");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         GetComponent<TakeDamage>().damageAction = (n) =>
@@ -56,7 +59,7 @@ public class PlayerController : MonoBehaviour
         {
             switch (s)
             {
-                case "lamp":
+                case EventPickUp.ThingType.LAMP:
                     canUseLamp = true;
                     break;
             }
@@ -133,6 +136,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+
     }
 }
