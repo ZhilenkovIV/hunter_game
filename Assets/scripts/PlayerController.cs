@@ -59,8 +59,12 @@ public class PlayerController : MonoBehaviour
         {
             switch (s)
             {
-                case EventPickUp.ThingType.LAMP:
+                case "lamp":
                     canUseLamp = true;
+                    break;
+                case "fall":
+                    rb.velocity = rb.velocity * Vector2.up;
+                    StartCoroutine(disabledControl(2));
                     break;
             }
         };

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Pickupable : MonoBehaviour
 {
-    public EventPickUp.ThingType thingName;
+    public string thingName;
     private LayerMask playerMask;
     // Start is called before the first frame update
 

@@ -4,14 +4,10 @@ using System;
 
 public class EventPickUp
 {
-    public enum ThingType {
-        LAMP,
-        MONEY
-    }
 
-    public static event Action<ThingType> PickUp;
+    public static event Action<string> PickUp;
 
-    public static void notify(ThingType thingName) {
+    public static void notify(string thingName) {
         PickUp?.Invoke(thingName);
     }
 }

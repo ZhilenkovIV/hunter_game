@@ -5,42 +5,90 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public float dumping = 1.5f;
-    public Vector2 offset = new Vector2(2f, 1f);
-    public bool isLeft;
     public Transform followObject;
 
-    public Vector2 sizeScene;
-    public Vector2 offsetScene;
+    public Vector2 maxOffset;
+
+    private Vector2 destination;
+
+    public Rect sceneArea;
+
+
+    public Rect[] zones;
+
+    private Vector2 cameraWorldHalfSize;
+
     
     // Start is called before the first frame update
     void Start()
     {
-        offset = new Vector2(Mathf.Abs(offset.x), offset.y);
+        maxOffset = new Vector2(Mathf.Abs(maxOffset.x), maxOffset.y);
+        
+        Vector2 leftBottom = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.25f, 0.25f, 0));
+        Vector2 rightTop = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.75f, 0.75f, 0));
+        cameraWorldHalfSize = new Vector2(rightTop.x - leftBottom.x, rightTop.y - leftBottom.y);
+        if (followObject)
+        {
+            destination = followObject.position;
+            foreach (Rect r in zones) {
+                if (r.Contains(followObject.position)) {
+                    sceneArea = r;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         if (followObject) {
-
-            Vector3 target;
-            if (isLeft)
+            Vector3 temp = new Vector3(destination.x, destination.y, 0) - transform.position;
+            transform.position += new Vector3(temp.x / 32, temp.y / 32, 0);
+            Vector3 offset = maxOffset;
+            if (followObject.localScale.x > 0)
             {
-                target = new Vector3(followObject.position.x - offset.x, followObject.position.y + offset.y, transform.position.z);
+                destination.x = followObject.position.x + offset.x;
+                destination.y = followObject.position.y + offset.y;
             }
-            else {
-                target = new Vector3(followObject.position.x + offset.x, followObject.position.y + offset.y, transform.position.z);
+            else
+            {
+                destination.x = followObject.position.x - offset.x;
+                destination.y = followObject.position.y + offset.y;
             }
+            
 
-
-            Vector3 currentPosition = Vector3.Lerp(transform.position, target, dumping * Time.deltaTime);
-            transform.position = currentPosition;
+            float clampX = Mathf.Clamp(transform.position.x, sceneArea.xMin + cameraWorldHalfSize.x, sceneArea.xMax - cameraWorldHalfSize.x);
+            float clampY = Mathf.Clamp(transform.position.y, sceneArea.yMin + cameraWorldHalfSize.y, sceneArea.yMax - cameraWorldHalfSize.y);
+            transform.position = new Vector3(clampX, clampY, transform.position.z);
+            if (!sceneArea.Contains(followObject.position))
+            {
+                foreach (Rect r in zones)
+                {
+                    if (r.Contains(followObject.position))
+                    {
+                        sceneArea = r;
+                    }
+                }
+            }
         }
-        
+
+
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(offsetScene, sizeScene);   
+        //Gizmos.DrawWireCube(centerScene, sizeScene);
+        Gizmos.DrawWireCube(sceneArea.center, sceneArea.size);
+        foreach(Rect r in zones){
+            Gizmos.DrawWireCube(r.center, r.size);
+        }
+        
+        //Vector2 cameraHalfSize = new Vector2(Camera.current.orthographicSize / 2, Camera.current.orthographicSize / 2);
+        //Gizmos.DrawWireCube(transform.position, cameraWorldHalfSize);
+
+        //Gizmos.DrawLine(new Vector3(destination.x, centerScene.y - sizeScene.y / 2), new Vector3(destination.x, centerScene.y + sizeScene.y / 2));
+        //Gizmos.DrawLine(new Vector3(centerScene.x - sizeScene.x / 2, destination.y), new Vector3(centerScene.x + sizeScene.x / 2, destination.y));
+
     }
+
 }
