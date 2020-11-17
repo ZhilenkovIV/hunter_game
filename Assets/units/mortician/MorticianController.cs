@@ -14,19 +14,13 @@ public class MorticianController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        EventPickUp.PickUp += (s) =>
-        {
-            if (s == "fall")
-            {
-                GetComponent<Animator>().SetTrigger("dig");
-                //StartCoroutine(cameraTarget(2));
-            }
-        };
+        //EventTrigger.Action += (s) =>
+        //{
+        //    if (s == "fall")
+        //    {
+        //        GetComponent<Animator>().SetTrigger("dig");
+        //    }
+        //};
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

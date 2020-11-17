@@ -68,21 +68,22 @@
     <Compile Include="Assets\scripts\DealDamage.cs" />
     <Compile Include="Assets\scripts\DestroyableSceneObject.cs" />
     <Compile Include="Assets\scripts\Detection.cs" />
-    <Compile Include="Assets\scripts\EventPickUp.cs" />
-    <Compile Include="Assets\scripts\FallUnderGround.cs" />
+    <Compile Include="Assets\scripts\FallEvent.cs" />
     <Compile Include="Assets\scripts\Fight2D.cs" />
+    <Compile Include="Assets\scripts\GameController.cs" />
+    <Compile Include="Assets\scripts\ICommand.cs" />
     <Compile Include="Assets\scripts\Jump.cs" />
     <Compile Include="Assets\scripts\PatrolBehavior.cs" />
-    <Compile Include="Assets\scripts\Pickupable.cs" />
-    <Compile Include="Assets\scripts\PlayerAnimator.cs" />
-    <Compile Include="Assets\scripts\PlayerController.cs" />
     <Compile Include="Assets\scripts\PlayerInterface.cs" />
-    <Compile Include="Assets\scripts\PlayerStroke.cs" />
     <Compile Include="Assets\scripts\SceneInfo.cs" />
     <Compile Include="Assets\scripts\TakeDamage.cs" />
-    <Compile Include="Assets\scripts\ZombiController.cs" />
-    <Compile Include="Assets\scripts\ZombiPunch.cs" />
     <Compile Include="Assets\units\mortician\MorticianController.cs" />
+    <Compile Include="Assets\units\player\PickUpEvent.cs" />
+    <Compile Include="Assets\units\player\PlayerAnimator.cs" />
+    <Compile Include="Assets\units\player\PlayerController.cs" />
+    <Compile Include="Assets\units\player\PlayerStroke.cs" />
+    <Compile Include="Assets\units\zombi\ZombiController.cs" />
+    <Compile Include="Assets\units\zombi\ZombiPunch.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/ivanzilenkov/GIT/monster_hunter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

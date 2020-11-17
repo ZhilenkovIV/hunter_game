@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# IDE1005: Вызов делегата можно упростить.
+csharp_style_conditional_delegate_call = false:suggestion
