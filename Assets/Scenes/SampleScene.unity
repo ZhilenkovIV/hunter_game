@@ -12895,6 +12895,49 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 361125144}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1318418856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1318418858}
+  - component: {fileID: 1318418857}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1318418857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318418856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa35fbc75946426aab1ef4bb15dd3d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1318418858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318418856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.797626, y: -3.0877116, z: -128.38403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1329092262 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8087257588712989140, guid: 2b15b241bdf6a42f4a19c1e140e60cc7,
@@ -19726,12 +19769,12 @@ PrefabInstance:
     - target: {fileID: 4245961024178900666, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.72
+      value: -5.96
       objectReference: {fileID: 0}
     - target: {fileID: 4245961024178900666, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.34
+      value: -2.28
       objectReference: {fileID: 0}
     - target: {fileID: 4245961024178900666, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}
