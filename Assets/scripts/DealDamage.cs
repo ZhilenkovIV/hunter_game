@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DealDamage : MonoBehaviour
+public class DealDamage : MonoBehaviour, ICommand
 {
     public float hit = 1;
     public LayerMask hitLayer;
@@ -43,18 +43,22 @@ public class DealDamage : MonoBehaviour
     // Start is called before the first frame update
     virtual public void Start() { }
 
-    void Update()
-    {
-        if (trigger() && canAttack && isActive)
-        {
-            StartCoroutine(action());
-        }
-    }
-
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 
+    public void Execute()
+    {
+        if (canAttack)
+        {
+            StartCoroutine(action());
+        }
+    }
+
+    public void Undo()
+    {
+        throw new System.NotImplementedException();
+    }
 }

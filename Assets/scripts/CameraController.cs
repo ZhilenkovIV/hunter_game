@@ -13,9 +13,6 @@ public class CameraController : MonoBehaviour
 
     public Rect sceneArea;
 
-
-    public Rect[] zones;
-
     private Vector2 cameraWorldHalfSize;
 
     
@@ -23,18 +20,17 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         maxOffset = new Vector2(Mathf.Abs(maxOffset.x), maxOffset.y);
-        
+
         Vector2 leftBottom = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.25f, 0.25f, 0));
         Vector2 rightTop = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0.75f, 0.75f, 0));
+
+        //Vector2 leftBottom = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(0f, 0f, 0));
+        //Vector2 rightTop = GetComponent<Camera>().ViewportToWorldPoint(new Vector3(1f, 1f, 0));
         cameraWorldHalfSize = new Vector2(rightTop.x - leftBottom.x, rightTop.y - leftBottom.y);
         if (followObject)
         {
-            destination = followObject.position;
-            foreach (Rect r in zones) {
-                if (r.Contains(followObject.position)) {
-                    sceneArea = r;
-                }
-            }
+            //destination = followObject.position;
+            transform.position = new Vector3(followObject.position.x, followObject.position.y, transform.position.z);
         }
     }
 
@@ -60,16 +56,6 @@ public class CameraController : MonoBehaviour
             float clampX = Mathf.Clamp(transform.position.x, sceneArea.xMin + cameraWorldHalfSize.x, sceneArea.xMax - cameraWorldHalfSize.x);
             float clampY = Mathf.Clamp(transform.position.y, sceneArea.yMin + cameraWorldHalfSize.y, sceneArea.yMax - cameraWorldHalfSize.y);
             transform.position = new Vector3(clampX, clampY, transform.position.z);
-            if (!sceneArea.Contains(followObject.position))
-            {
-                foreach (Rect r in zones)
-                {
-                    if (r.Contains(followObject.position))
-                    {
-                        sceneArea = r;
-                    }
-                }
-            }
         }
 
 
@@ -79,9 +65,6 @@ public class CameraController : MonoBehaviour
     {
         //Gizmos.DrawWireCube(centerScene, sizeScene);
         Gizmos.DrawWireCube(sceneArea.center, sceneArea.size);
-        foreach(Rect r in zones){
-            Gizmos.DrawWireCube(r.center, r.size);
-        }
         
         //Vector2 cameraHalfSize = new Vector2(Camera.current.orthographicSize / 2, Camera.current.orthographicSize / 2);
         //Gizmos.DrawWireCube(transform.position, cameraWorldHalfSize);

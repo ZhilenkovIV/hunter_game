@@ -7,7 +7,7 @@ public class TakeDamage : MonoBehaviour
     //в качестве параметра принимается собственный игровой объект
     public Fight2D.LambdaAction dieAction;
     //в качестве параметра принимается наносящий урон объект
-    public Fight2D.LambdaAction damageAction;
+    public event Fight2D.LambdaAction damageAction;
     public float immunityTime;
     public Color immunityColor = Color.red;
     private int unitLayer;
@@ -32,10 +32,6 @@ public class TakeDamage : MonoBehaviour
         {
             dieAction = (n) => Destroy(n);
         }
-        if (damageAction == null)
-        {
-            damageAction = (n) => { };
-        }
     }
 
     public void damage(DealDamage dealDamage) {
@@ -43,7 +39,10 @@ public class TakeDamage : MonoBehaviour
         if (hp <= 0) {
             dieAction(gameObject);
         }
-        damageAction(dealDamage.source);
+        if (damageAction != null)
+        {
+            damageAction(dealDamage.source);
+        }
         if (immunityTime != 0)
         {
             StartCoroutine(immunity(immunityTime));

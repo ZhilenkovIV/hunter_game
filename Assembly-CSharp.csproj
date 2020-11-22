@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scenes\LevelChanger.cs" />
+    <Compile Include="Assets\Scenes\LevelChangerTrigger.cs" />
     <Compile Include="Assets\scripts\CameraController.cs" />
     <Compile Include="Assets\scripts\CombatClash.cs" />
     <Compile Include="Assets\scripts\DealDamage.cs" />
@@ -70,16 +72,20 @@
     <Compile Include="Assets\scripts\Detection.cs" />
     <Compile Include="Assets\scripts\FallEvent.cs" />
     <Compile Include="Assets\scripts\Fight2D.cs" />
-    <Compile Include="Assets\scripts\GameController.cs" />
     <Compile Include="Assets\scripts\ICommand.cs" />
-    <Compile Include="Assets\scripts\Jump.cs" />
+    <Compile Include="Assets\scripts\JumpCommand.cs" />
+    <Compile Include="Assets\scripts\MoveXCommand.cs" />
     <Compile Include="Assets\scripts\PatrolBehavior.cs" />
     <Compile Include="Assets\scripts\PlayerInterface.cs" />
+    <Compile Include="Assets\scripts\PressPlate.cs" />
     <Compile Include="Assets\scripts\SceneInfo.cs" />
+    <Compile Include="Assets\scripts\SuddenlyControlPlayer.cs" />
     <Compile Include="Assets\scripts\TakeDamage.cs" />
     <Compile Include="Assets\scripts\TextAttack.cs" />
-    <Compile Include="Assets\scripts\TextLamp.cs" />
+    <Compile Include="Assets\scripts\VectorValue.cs" />
     <Compile Include="Assets\units\mortician\MorticianController.cs" />
+    <Compile Include="Assets\units\player\HealPointsUiController.cs" />
+    <Compile Include="Assets\units\player\LampCommand.cs" />
     <Compile Include="Assets\units\player\PickUpEvent.cs" />
     <Compile Include="Assets\units\player\PlayerAnimator.cs" />
     <Compile Include="Assets\units\player\PlayerController.cs" />

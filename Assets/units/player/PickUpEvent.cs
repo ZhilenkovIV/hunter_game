@@ -5,7 +5,6 @@ using UnityEngine;
 public class PickUpEvent : MonoBehaviour
 {
     private LayerMask layerMask;
-    private Collider2D coll;
     public string thingName;
 
     public static event System.Action<string> Action;
@@ -14,12 +13,12 @@ public class PickUpEvent : MonoBehaviour
     void Start()
     {
         layerMask = LayerMask.GetMask("Player");
-        coll = GetComponent<Collider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (coll.IsTouchingLayers(layerMask))
+        int layerColl = collision.collider.gameObject.layer;
+        if (((1 << layerColl) & layerMask.value) != 0)
         {
             if (Action != null)
             {

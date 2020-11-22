@@ -20,6 +20,11 @@ public class ZombiController : MonoBehaviour
     public float stopDistX = 0;
     public bool canMove = true;
 
+    public ICommand attackCommand;
+
+
+    public float attackRadius;
+
     public IEnumerator disabledControl(float time) {
         canMove = false;
         yield return new WaitForSeconds(time);
@@ -33,26 +38,24 @@ public class ZombiController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
         GetComponentInChildren<ZombiPunch>().attackObject = target.GetComponent<Transform>();
-        GetComponent<TakeDamage>().damageAction =
+        GetComponent<TakeDamage>().damageAction +=
             (n)=> {
                 Fight2D.recoil(GetComponent<Rigidbody2D>(), n.GetComponent<Rigidbody2D>().position, 15);
                 StartCoroutine(disabledControl(0.1f));
             };
+        attackCommand = GetComponentInChildren<ZombiPunch>();
     }
 
     private void FixedUpdate()
     {
-        if (canMove)
+        if (target && canMove)
         {
             Vector2 sub = target.position - rb.position;
 
-            if (Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y)
-            {
-                rb.velocity = new Vector2(Mathf.Sign(sub.x) * maxSpeed, rb.velocity.y);
-            }
-            if (Mathf.Abs(sub.x) < stopDistX)
-            {
-                rb.velocity = Vector2.up * rb.velocity;
+            if (Mathf.Abs(sub.x) > stopDistX && Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y) {
+                float move = Mathf.Sign(sub.x);
+                ICommand motion = new MoveXCommand(rb, move, maxSpeed);
+                motion.Execute();
             }
 
             GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(rb.velocity.x));
@@ -64,6 +67,11 @@ public class ZombiController : MonoBehaviour
             //обратная ситуация. отражаем персонажа влево
             else if (rb.velocity.x < 0 && isFacingRight)
                 Flip();
+
+            if ((rb.position - target.position).magnitude < 2 * attackRadius)
+            {
+                attackCommand.Execute();
+            }
         }
     }
 
@@ -84,7 +92,6 @@ public class ZombiController : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //Gizmos.color = new Color(1, 1, 0, 0.75F);
         Gizmos.DrawWireCube(transform.position, visibilityRect);
         Gizmos.DrawLine(transform.position - stopDistX * Vector3.right, transform.position + stopDistX * Vector3.right);
     }

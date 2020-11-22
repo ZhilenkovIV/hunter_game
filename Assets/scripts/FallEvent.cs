@@ -17,14 +17,14 @@ public class FallEvent : MonoBehaviour
 
     private IEnumerator Action() {
 
-        player.canMove = false;
+        player.CanInputHandle = false;
         player.GetComponent<Rigidbody2D>().velocity *= Vector2.up;
         mortician.SetTrigger("dig");
         yield return new WaitForSeconds(2f);
         foreach (var b in dissapearingBlocks) {
             Destroy(b);
         }
-        player.canMove = true;
+        player.CanInputHandle = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    private KeyCode JumpKey = KeyCode.UpArrow;
+    public static KeyCode jumpButton = KeyCode.Space;
+    public static KeyCode attackButton = KeyCode.Z;
+    public static KeyCode lampButton = KeyCode.C;
     private Rigidbody2D rb;
     private Animator anim;
 
-    [HideInInspector]
-    public ICommand Stop;
-    [HideInInspector]
-    public ICommand MoveOn;
-
     public float maxSpeed = 10f;
+    public float jumpHeight = 20f;
+
+    public bool usePos = true;
+    public VectorValue pos;
     //переменная для определения направления персонажа вправо/влево
     private bool isFacingRight = true;
 
     //находится ли персонаж на земле или в прыжке?
     [SerializeField]
     private bool isGrounded = false;
+
+    public bool IsGrounded {
+        get {
+            return isGrounded;
+        }
+    }
     //ссылка на компонент Transform объекта
     //для определения соприкосновения с землей
     private Transform groundCheck;
@@ -30,38 +36,64 @@ public class PlayerController : MonoBehaviour
     private float groundRadius = 0.1f;
     //ссылка на слой, представляющий землю
     public LayerMask whatIsGround;
-    public bool canMove = true;
+
+    private bool canInputHandle = true;
+    public bool CanInputHandle
+    {
+        get {
+            return canInputHandle;
+        }
+
+        set {
+            if (value == false)
+            {
+                rb.velocity *= Vector2.up;
+                lampCommand.Undo();
+                jumpCommand.Undo();
+            }
+            canInputHandle = value;
+        }
+    }
 
     public System.Action Grounded;
 
     private delegate bool LampButtonIsPressed();
     private LampButtonIsPressed lampButtonIsPressed;
 
+    [HideInInspector]
+    public ICommand jumpCommand;
+    [HideInInspector]
+    public ICommand lampCommand;
+    [HideInInspector]
+    public ICommand attackCommand;
 
-    public IEnumerator disabledControl(float delta) {
-        canMove = false;
-        yield return new WaitForSeconds(delta);
-        canMove = true;
+    public IEnumerator disabledInput(float deltaTime){
+        canInputHandle = false;
+        yield return new WaitForSeconds(deltaTime);
+        canInputHandle = true;
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (usePos)
+        {
+            transform.position = pos.initialValue;
+        }
         groundCheck = transform.Find("GroundCheck");
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        GetComponent<TakeDamage>().damageAction = (n) =>
+        GetComponent<TakeDamage>().damageAction += (n) =>
         {
-            if (canMove)
-            {
-                Fight2D.recoil(rb, n.GetComponent<Rigidbody2D>().position, 15);
-                StartCoroutine(disabledControl(0.1f));
-            }
+            Fight2D.recoil(rb, n.GetComponent<Rigidbody2D>().position, 15);
+            StartCoroutine(disabledInput(0.1f));
         };
-        //если персонаж на земле и нажат пробел...
-        GetComponent<Jump>().trigger = () => isGrounded && Input.GetKeyDown(JumpKey) && canMove;
-        GetComponent<Jump>().stopJump = () => !Input.GetKey(JumpKey);
+
+        jumpCommand = new JumpCommand(rb, jumpHeight);
+        lampCommand = new LampCommand(lamp);
+        attackCommand = stroke.GetComponent<PlayerStroke>();
+
         lampButtonIsPressed = () => false;
 
         PickUpEvent.Action += (s) =>
@@ -69,13 +101,7 @@ public class PlayerController : MonoBehaviour
             switch (s)
             {
                 case "lamp":
-                    lampButtonIsPressed = () => Input.GetKeyDown(KeyCode.C);
-                    break;
-                case "stop":
-                    canMove = false;
-                    break;
-                case "move on":
-                    canMove = true;
+                    lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
                     break;
             }
         };
@@ -88,48 +114,56 @@ public class PlayerController : MonoBehaviour
     {
         //определяем, на земле ли персонаж
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+
+        if (canInputHandle)
+        {
+            //используем Input.GetAxis для оси Х. метод возвращает значение оси в пределах от -1 до 1.
+            //при стандартных настройках проекта 
+            //-1 возвращается при нажатии на клавиатуре стрелки влево (или клавиши А),
+            //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
+            float move = Input.GetAxis("Horizontal");
+
+            ICommand motion = new MoveXCommand(rb, move, maxSpeed);
+            motion.Execute();
+
+
+            if (isGrounded && Input.GetKeyDown(jumpButton) && !lamp.activeSelf)
+            {
+                jumpCommand.Execute();
+            }
+            else if (!Input.GetKey(jumpButton))
+            {
+                jumpCommand.Undo();
+            }
+        }
+
+        //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.
+        //приэтом нам нужен модуль значения
+        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         //устанавливаем соответствующую переменную в аниматоре
         anim.SetBool("Ground", isGrounded);
         //устанавливаем в аниматоре значение скорости взлета/падения
         anim.SetFloat("vSpeed", rb.velocity.y);
 
-        //используем Input.GetAxis для оси Х. метод возвращает значение оси в пределах от -1 до 1.
-        //при стандартных настройках проекта 
-        //-1 возвращается при нажатии на клавиатуре стрелки влево (или клавиши А),
-        //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
-        float move = Input.GetAxis("Horizontal");
-
-        //обращаемся к компоненту персонажа RigidBody2D. задаем ему скорость по оси Х, 
-        //равную значению оси Х умноженное на значение макс. скорости
-        if (canMove)
-        {
-            rb.velocity = new Vector2(move * maxSpeed, rb.velocity.y);
-            //если нажали клавишу для перемещения вправо, а персонаж направлен влево
-            if (move > 0 && !isFacingRight)
-                //отражаем персонажа вправо
-                Flip();
-            //обратная ситуация. отражаем персонажа влево
-            else if (move < 0 && isFacingRight)
-                Flip();
-        }
-        //rb.AddForce(new Vector2(move * maxSpeed, 0));
-        //если персонаж в прыжке - выход из метода, чтобы не выполнялись действия, связанные с бегом
-        //if (!isGrounded)
-        //    return;
-
-        //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.
-        //приэтом нам нужен модуль значения
-        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-
     }
 
     private void Update()
     {
-        if (lampButtonIsPressed()) {
-            lamp.SetActive(!lamp.activeSelf);
-            GetComponent<Jump>().enabled = !lamp.activeSelf;
-            stroke.GetComponent<PlayerStroke>().isActive = !lamp.activeSelf;
-        }  
+        if (canInputHandle)
+        {
+            if (lampButtonIsPressed())
+            {
+                if (!lamp.activeSelf)
+                    lampCommand.Execute();
+                else
+                    lampCommand.Undo();
+            }
+
+            if (Input.GetKeyDown(attackButton))
+            {
+                attackCommand.Execute();
+            }
+        }
     }
 
     /// <summary>
@@ -145,10 +179,5 @@ public class PlayerController : MonoBehaviour
         theScale.x *= -1;
         //задаем новый размер персонажа, равный старому, но зеркально отраженный
         transform.localScale = theScale;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-
     }
 }

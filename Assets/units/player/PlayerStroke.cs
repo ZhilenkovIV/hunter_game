@@ -19,25 +19,21 @@ public class PlayerStroke : DealDamage
         playerAnimator = source.GetComponent<Animator>();
     }
 
-    public override bool trigger()
-    {
-        return Input.GetKeyDown(KeyCode.Z);
-    }
-
     private IEnumerator blockControl(float deltaTime) {
-        playerAnimator.GetComponent<PlayerController>().canMove = false;
+        playerAnimator.GetComponent<PlayerController>().CanInputHandle = false;
         yield return new WaitForSeconds(deltaTime);
-        playerAnimator.GetComponent<PlayerController>().canMove = true;
+        playerAnimator.GetComponent<PlayerController>().CanInputHandle = true;
     }
 
     public override void attackPass(Transform takeDamageObj)
     {
         
-        if (GetComponentInParent<PlayerController>().canMove)
+        if (GetComponentInParent<PlayerController>().CanInputHandle)
         {
             Fight2D.recoil(source.GetComponent<Rigidbody2D>(), takeDamageObj.position, 20);
             StartCoroutine(blockControl(0.1f));
             GetComponent<ParticleSystem>().Play();
         }
     }
+
 }
