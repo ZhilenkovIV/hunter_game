@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
             float move = Input.GetAxis("Horizontal");
 
-            ICommand motion = new MoveXCommand(rb, move, maxSpeed);
+            ICommand motion = new MoveXCommand(rb, move * maxSpeed);
             motion.Execute();
 
 
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumpCommand.Execute();
             }
-            else if (!Input.GetKey(jumpButton))
+            else if (Input.GetKeyUp(jumpButton))
             {
                 jumpCommand.Undo();
             }

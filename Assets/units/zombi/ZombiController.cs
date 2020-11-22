@@ -54,7 +54,7 @@ public class ZombiController : MonoBehaviour
 
             if (Mathf.Abs(sub.x) > stopDistX && Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y) {
                 float move = Mathf.Sign(sub.x);
-                ICommand motion = new MoveXCommand(rb, move, maxSpeed);
+                ICommand motion = new MoveXCommand(rb, move * maxSpeed);
                 motion.Execute();
             }
 

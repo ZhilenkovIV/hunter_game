@@ -16,7 +16,7 @@ public class SuddenlyControlPlayer : MonoBehaviour
 
         controller.CanInputHandle = false;
         for (float time = 0; time < 0.5f; time += Time.deltaTime) {
-            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
             yield return null;
         }
         while (!controller.IsGrounded)
@@ -27,7 +27,7 @@ public class SuddenlyControlPlayer : MonoBehaviour
         yield return null;
         for (float time = 0; time < 0.5f; time += Time.deltaTime)
         {
-            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
             yield return null;
         }
         while (!controller.IsGrounded) {
@@ -37,29 +37,29 @@ public class SuddenlyControlPlayer : MonoBehaviour
         yield return null;
         for (float time = 0; time < 0.5f; time += Time.deltaTime)
         {
-            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+            new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
             yield return null;
         }
         float timeWait = 0.2f;
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), 1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), controller.maxSpeed).Execute();
         yield return new WaitForSeconds(timeWait);
-        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -1, controller.maxSpeed).Execute();
+        new MoveXCommand(controller.GetComponent<Rigidbody2D>(), -controller.maxSpeed).Execute();
         yield return null;
         controller.CanInputHandle = true;
 

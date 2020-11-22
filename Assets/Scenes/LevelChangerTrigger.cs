@@ -39,7 +39,7 @@ public class LevelChangerTrigger : MonoBehaviour
             Debug.Log("stay + direction:" + direction.x);
             ICommand move;
             //move = new MoveXCommand(playerRB, direction.x, controller.maxSpeed);
-            move = new MoveXCommand(playerRB, dirX, controller.maxSpeed);
+            move = new MoveXCommand(playerRB, dirX * controller.maxSpeed);
             move.Execute();
         }
     }
