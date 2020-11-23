@@ -10,7 +10,7 @@ public class LevelChangerTrigger : MonoBehaviour
     public Vector3 newPlayerPosition;
     private PlayerController controller;
     private Rigidbody2D playerRB;
-    private float dirX;
+    private Vector2 enterDistance;
 
 
     private void Start()
@@ -23,11 +23,11 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("enter + direction:" + direction.x);
             controller = collision.GetComponent<PlayerController>();
             playerRB = controller.GetComponent<Rigidbody2D>();
-
-            dirX = Mathf.Sign(GetComponent<Collider2D>().bounds.center.x - collision.transform.position.x);
+            enterDistance = transform.position - controller.transform.position;
+            enterDistance.x = Mathf.Sign(enterDistance.x);
+            enterDistance.y = Mathf.Sign(enterDistance.y);
             collision.GetComponent<PlayerController>().CanInputHandle = false;
         }
     }
@@ -36,11 +36,15 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("stay + direction:" + direction.x);
             ICommand move;
-            //move = new MoveXCommand(playerRB, direction.x, controller.maxSpeed);
-            move = new MoveXCommand(playerRB, dirX * controller.maxSpeed);
-            move.Execute();
+            if (direction.x != 0)
+            {
+                move = new MoveXCommand(playerRB, enterDistance.x * controller.maxSpeed);
+                move.Execute();
+            }
+            if (direction.y > 0) {
+                controller.jumpCommand.Execute();
+            }
         }
     }
 
@@ -48,8 +52,7 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("exit + direction:" + direction.x);
-            if (dirX == direction.x)
+            if (enterDistance.x == direction.x || enterDistance.y == direction.y)
             {
                 levelChanger.FadeToLevel(levelToLoad, newPlayerPosition);
             }

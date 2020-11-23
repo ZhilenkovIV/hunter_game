@@ -6,11 +6,9 @@ public class CameraController : MonoBehaviour
 {
     public float dumping = 1.5f;
     public Transform followObject;
-
+    
     public Vector2 maxOffset;
-
     private Vector2 destination;
-
     public Rect sceneArea;
 
     private Vector2 cameraWorldHalfSize;

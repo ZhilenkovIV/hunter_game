@@ -159,7 +159,7 @@ public class PlayerController : MonoBehaviour
                     lampCommand.Undo();
             }
 
-            if (Input.GetKeyDown(attackButton))
+            if (Input.GetKeyDown(attackButton) && !lamp.activeSelf)
             {
                 attackCommand.Execute();
             }

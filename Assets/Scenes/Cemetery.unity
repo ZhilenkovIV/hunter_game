@@ -2910,7 +2910,7 @@ PrefabInstance:
     - target: {fileID: 5003885519303888921, guid: 6f3e7862b3188448586daa22b9e172bf,
         type: 3}
       propertyPath: direction.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5003885519303888921, guid: 6f3e7862b3188448586daa22b9e172bf,
         type: 3}
