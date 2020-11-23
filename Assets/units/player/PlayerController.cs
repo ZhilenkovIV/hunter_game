@@ -37,7 +37,9 @@ public class PlayerController : MonoBehaviour
     //ссылка на слой, представляющий землю
     public LayerMask whatIsGround;
 
+    [SerializeField]
     private bool canInputHandle = true;
+    private bool isProgramBlock = false; //для функции disableInput, чтобы она не возвращал контроль при блокировке
     public bool CanInputHandle
     {
         get {
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
                 jumpCommand.Undo();
             }
             canInputHandle = value;
+            isProgramBlock = !value;
         }
     }
 
@@ -67,10 +70,11 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public ICommand attackCommand;
 
-    public IEnumerator disabledInput(float deltaTime){
+    public IEnumerator disableInput(float deltaTime){
         canInputHandle = false;
+        Debug.Log("startDisable");
         yield return new WaitForSeconds(deltaTime);
-        canInputHandle = true;
+        canInputHandle = true && !isProgramBlock;
     }
 
 
@@ -87,14 +91,24 @@ public class PlayerController : MonoBehaviour
         GetComponent<TakeDamage>().damageAction += (n) =>
         {
             Fight2D.recoil(rb, n.GetComponent<Rigidbody2D>().position, 15);
-            StartCoroutine(disabledInput(0.1f));
+            StartCoroutine(disableInput(0.1f));
         };
+        GetComponent<TakeDamage>().dieAction += () => Destroy(gameObject);
 
         jumpCommand = new JumpCommand(rb, jumpHeight);
         lampCommand = new LampCommand(lamp);
-        attackCommand = stroke.GetComponent<PlayerStroke>();
+        attackCommand = GetComponent<DealDamage>();
 
         lampButtonIsPressed = () => false;
+
+        GetComponent<DealDamage>().attack += () =>
+        {
+            anim.SetTrigger("Attack");
+            StartCoroutine(disableInput(0.2f));
+        };
+        GetComponent<DealDamage>().attackPass += (n)=> {
+            //Fight2D.recoil(rb, n.position, 20);
+        };
 
         PickUpEvent.Action += (s) =>
         {
@@ -125,7 +139,6 @@ public class PlayerController : MonoBehaviour
 
             ICommand motion = new MoveXCommand(rb, move * maxSpeed);
             motion.Execute();
-
 
             if (isGrounded && Input.GetKeyDown(jumpButton) && !lamp.activeSelf)
             {

@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class TakeDamage : MonoBehaviour
 {
-    //в качестве параметра принимается собственный игровой объект
-    public Fight2D.LambdaAction dieAction;
-    //в качестве параметра принимается наносящий урон объект
-    public event Fight2D.LambdaAction damageAction;
+    public event System.Action dieAction;
+    public event System.Action<GameObject> damageAction;
+
     public float immunityTime;
     public Color immunityColor = Color.red;
     private int unitLayer;
@@ -28,20 +27,16 @@ public class TakeDamage : MonoBehaviour
     private void Start()
     {
         unitLayer = gameObject.layer;
-        if (dieAction == null)
-        {
-            dieAction = (n) => Destroy(n);
-        }
     }
 
     public void damage(DealDamage dealDamage) {
         hp -= dealDamage.hit;
         if (hp <= 0) {
-            dieAction(gameObject);
+            dieAction();
         }
         if (damageAction != null)
         {
-            damageAction(dealDamage.source);
+            damageAction(dealDamage.gameObject);
         }
         if (immunityTime != 0)
         {

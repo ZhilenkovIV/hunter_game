@@ -25,7 +25,7 @@ public class ZombiController : MonoBehaviour
 
     public float attackRadius;
 
-    public IEnumerator disabledControl(float time) {
+    public IEnumerator disableControl(float time) {
         canMove = false;
         yield return new WaitForSeconds(time);
         canMove = true;
@@ -37,13 +37,23 @@ public class ZombiController : MonoBehaviour
     {
         target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
-        GetComponentInChildren<ZombiPunch>().attackObject = target.GetComponent<Transform>();
+
         GetComponent<TakeDamage>().damageAction +=
             (n)=> {
                 Fight2D.recoil(GetComponent<Rigidbody2D>(), n.GetComponent<Rigidbody2D>().position, 15);
-                StartCoroutine(disabledControl(0.1f));
+                StartCoroutine(disableControl(0.1f));
             };
-        attackCommand = GetComponentInChildren<ZombiPunch>();
+        GetComponent<TakeDamage>().dieAction += () => Destroy(gameObject);
+        attackCommand = GetComponent<DealDamage>();
+
+        GetComponent<DealDamage>().attack += ()=> {
+            GetComponent<Animator>().SetTrigger("Attack");
+        };
+
+        GetComponent<DealDamage>().attackPass += (n) => {
+            //Fight2D.recoil(source.GetComponent<Rigidbody2D>(), takeDamageObj.transform.position, 15);
+            StartCoroutine(disableControl(0.1f));
+        };
     }
 
     private void FixedUpdate()

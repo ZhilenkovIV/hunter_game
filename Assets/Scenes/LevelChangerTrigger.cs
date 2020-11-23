@@ -15,20 +15,19 @@ public class LevelChangerTrigger : MonoBehaviour
 
     private void Start()
     {
-        Collider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
-        Debug.Log(playerCollider);
+        controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerRB = controller.GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            controller = collision.GetComponent<PlayerController>();
-            playerRB = controller.GetComponent<Rigidbody2D>();
+            controller.CanInputHandle = false;
             enterDistance = transform.position - controller.transform.position;
             enterDistance.x = Mathf.Sign(enterDistance.x);
             enterDistance.y = Mathf.Sign(enterDistance.y);
-            collision.GetComponent<PlayerController>().CanInputHandle = false;
+            Debug.Log("enter");
         }
     }
 
@@ -52,6 +51,7 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            Debug.Log("exit");
             if (enterDistance.x == direction.x || enterDistance.y == direction.y)
             {
                 levelChanger.FadeToLevel(levelToLoad, newPlayerPosition);

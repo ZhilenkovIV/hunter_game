@@ -9,10 +9,12 @@ public class SceneDoor : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(doorIsExist.value);
-        GetComponent<TakeDamage>().dieAction += (n) =>
+        GetComponent<TakeDamage>().dieAction += () =>
         {
+            Debug.Log("Destroying door");
             doorIsExist.value = false;
-            Destroy(n);
+            Destroy(gameObject);
+            Debug.Log("Destroed " + doorIsExist.value);
         };
     }
 

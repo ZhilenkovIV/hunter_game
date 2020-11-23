@@ -6,47 +6,49 @@ public class DealDamage : MonoBehaviour, ICommand
 {
     public float hit = 1;
     public LayerMask hitLayer;
-    public GameObject source;
     public float attackRadius = 2.5f;
     public float period;
     public float delay;
     private bool canAttack = true;
-    public bool isActive = true;
+    public Vector2 offset;
 
 
-    virtual public bool trigger() { return false; }
+    public event System.Action attack;
 
-    virtual public void attack() { }
-
-    virtual public void attackPass(Transform takeDamageObj) { }
+    public event System.Action<Transform> attackPass;
 
     private IEnumerator action()
     {
         canAttack = false;
-        attack();
+        if(attack != null)
+            attack();
         yield return new WaitForSeconds(delay);
         //yield return currentTime < delay;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, hitLayer);
+        Vector2 position = transform.position;
+        Vector2 currentOffset = offset;
+        currentOffset.x *= Mathf.Sign(transform.localScale.x);
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position + currentOffset, attackRadius, hitLayer);
+
         foreach (Collider2D hit in colliders)
         {
             TakeDamage target = hit.GetComponent<TakeDamage>();
             if (target!= null && !target.isImmunuted)
             {
                 hit.GetComponent<TakeDamage>().damage(this);
-                attackPass(hit.transform);
+                if(attackPass != null)
+                    attackPass(hit.transform);
             }
         }
         yield return new WaitForSeconds(period);
         canAttack = true;
     }
 
-    // Start is called before the first frame update
-    virtual public void Start() { }
 
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(Mathf.Sign(transform.localScale.x) * offset.x, offset.y,0), attackRadius);
     }
 
     public void Execute()
