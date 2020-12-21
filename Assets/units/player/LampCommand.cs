@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LampCommand : ICommand
+public class LampCommand : MonoBehaviour, ICommand
 {
-    GameObject lamp;
-
-    public LampCommand(GameObject lampObject) {
-        this.lamp = lampObject;
-    }
+    public GameObject lamp;
     
     public void Execute()
     {

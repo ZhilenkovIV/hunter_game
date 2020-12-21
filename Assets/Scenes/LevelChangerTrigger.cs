@@ -12,11 +12,14 @@ public class LevelChangerTrigger : MonoBehaviour
     private Rigidbody2D playerRB;
     private Vector2 enterDistance;
 
+    private MoveXCommand move;
+
 
     private void Start()
     {
         controller = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         playerRB = controller.GetComponent<Rigidbody2D>();
+        move = controller.GetComponent<MoveXCommand>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -27,7 +30,8 @@ public class LevelChangerTrigger : MonoBehaviour
             enterDistance = transform.position - controller.transform.position;
             enterDistance.x = Mathf.Sign(enterDistance.x);
             enterDistance.y = Mathf.Sign(enterDistance.y);
-            Debug.Log("enter");
+
+            move.Direction = enterDistance.x;
         }
     }
 
@@ -35,10 +39,8 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            ICommand move;
             if (direction.x != 0)
             {
-                move = new MoveXCommand(playerRB, enterDistance.x * controller.maxSpeed);
                 move.Execute();
             }
             if (direction.y > 0) {
@@ -51,7 +53,6 @@ public class LevelChangerTrigger : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            Debug.Log("exit");
             if (enterDistance.x == direction.x || enterDistance.y == direction.y)
             {
                 levelChanger.FadeToLevel(levelToLoad, newPlayerPosition);

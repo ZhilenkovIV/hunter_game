@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Crypt.unity
     guid: d02b4c1b4cf8a4841b051e47a08c062f
   - enabled: 1
-    path: Assets/Scenes/Cemetery.unity
+    path: Assets/Scenes/Cemetry/Cemetery.unity
     guid: d34ec02ddb6c94dfc8b3ad7b765b4b44
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity

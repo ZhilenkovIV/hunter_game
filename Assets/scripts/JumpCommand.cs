@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpCommand : ICommand
+public class JumpCommand : MonoBehaviour, ICommand
 {
-    private readonly Rigidbody2D rb;
-    private float power;
+    private Rigidbody2D rb;
+    public float power;
 
-    public JumpCommand(in Rigidbody2D rigidbody, float jumpHeight) {
-        rb = rigidbody;
-        power = jumpHeight;
+    public void Start() {
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public void Execute()

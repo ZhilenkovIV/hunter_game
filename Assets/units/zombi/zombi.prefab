@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 8886079987506344943}
   - component: {fileID: 5307450705289600126}
   - component: {fileID: 60023588881413788}
+  - component: {fileID: 6566148721999134451}
   m_Layer: 10
   m_Name: zombi
   m_TagString: Untagged
@@ -52,6 +53,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -224,5 +226,17 @@ MonoBehaviour:
   attackRadius: 0.76
   period: 1
   delay: 0.4
-  isActive: 1
   offset: {x: 0.27, y: 0}
+--- !u!114 &6566148721999134451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886079987506344936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e13e8aad55e842c99a7dec9f052edc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 4

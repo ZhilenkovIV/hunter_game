@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    public float maxSpeed = 10f;
-    public float jumpHeight = 20f;
-
     public bool usePos = true;
     public VectorValue pos;
     //переменная для определения направления персонажа вправо/влево
@@ -30,8 +27,6 @@ public class PlayerController : MonoBehaviour
     //ссылка на компонент Transform объекта
     //для определения соприкосновения с землей
     private Transform groundCheck;
-    public GameObject lamp;
-    public GameObject stroke;
     //радиус определения соприкосновения с землей
     private float groundRadius = 0.1f;
     //ссылка на слой, представляющий землю
@@ -69,10 +64,11 @@ public class PlayerController : MonoBehaviour
     public ICommand lampCommand;
     [HideInInspector]
     public ICommand attackCommand;
+    [HideInInspector]
+    public ICommand motion;
 
     public IEnumerator disableInput(float deltaTime){
         canInputHandle = false;
-        Debug.Log("startDisable");
         yield return new WaitForSeconds(deltaTime);
         canInputHandle = true && !isProgramBlock;
     }
@@ -95,11 +91,20 @@ public class PlayerController : MonoBehaviour
         };
         GetComponent<TakeDamage>().dieAction += () => Destroy(gameObject);
 
-        jumpCommand = new JumpCommand(rb, jumpHeight);
-        lampCommand = new LampCommand(lamp);
+        //jumpCommand = new JumpCommand(rb, jumpHeight);
+        jumpCommand = GetComponent<JumpCommand>();
+        //lampCommand = GetComponent<LampCommand>();
+        //используем Input.GetAxis для оси Х. метод возвращает значение оси в пределах от -1 до 1.
+        //при стандартных настройках проекта 
+        //-1 возвращается при нажатии на клавиатуре стрелки влево (или клавиши А),
+        //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
+        //motion = new MoveXCommand(rb, maxSpeed, ()=> Input.GetAxis("Horizontal"));
+        motion = GetComponent<MoveXCommand>();
+        lampCommand = GetComponent<LampCommand>();
+
         attackCommand = GetComponent<DealDamage>();
 
-        lampButtonIsPressed = () => false;
+        lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
 
         GetComponent<DealDamage>().attack += () =>
         {
@@ -131,23 +136,8 @@ public class PlayerController : MonoBehaviour
 
         if (canInputHandle)
         {
-            //используем Input.GetAxis для оси Х. метод возвращает значение оси в пределах от -1 до 1.
-            //при стандартных настройках проекта 
-            //-1 возвращается при нажатии на клавиатуре стрелки влево (или клавиши А),
-            //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
-            float move = Input.GetAxis("Horizontal");
-
-            ICommand motion = new MoveXCommand(rb, move * maxSpeed);
+            (motion as MoveXCommand).Direction = Input.GetAxis("Horizontal");
             motion.Execute();
-
-            if (isGrounded && Input.GetKeyDown(jumpButton) && !lamp.activeSelf)
-            {
-                jumpCommand.Execute();
-            }
-            else if (Input.GetKeyUp(jumpButton))
-            {
-                jumpCommand.Undo();
-            }
         }
 
         //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.
@@ -164,15 +154,25 @@ public class PlayerController : MonoBehaviour
     {
         if (canInputHandle)
         {
+            bool lampIsActive = (lampCommand as LampCommand).lamp.activeSelf;
             if (lampButtonIsPressed())
             {
-                if (!lamp.activeSelf)
+                if (!lampIsActive)
                     lampCommand.Execute();
                 else
                     lampCommand.Undo();
             }
 
-            if (Input.GetKeyDown(attackButton) && !lamp.activeSelf)
+            if (isGrounded && Input.GetKeyDown(jumpButton) && !lampIsActive)
+            {
+                jumpCommand.Execute();
+            }
+            else if (Input.GetKeyUp(jumpButton))
+            {
+                jumpCommand.Undo();
+            }
+
+            if (Input.GetKeyDown(attackButton) && !lampIsActive)
             {
                 attackCommand.Execute();
             }

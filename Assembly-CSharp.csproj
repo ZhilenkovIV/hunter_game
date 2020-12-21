@@ -65,12 +65,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scenes\BoolValue.cs" />
+    <Compile Include="Assets\Scenes\ElevatorMotion.cs" />
     <Compile Include="Assets\Scenes\LevelChanger.cs" />
     <Compile Include="Assets\Scenes\LevelChangerTrigger.cs" />
     <Compile Include="Assets\Scenes\SceneDoor.cs" />
     <Compile Include="Assets\scripts\AttackSparcles.cs" />
     <Compile Include="Assets\scripts\CameraController.cs" />
-    <Compile Include="Assets\scripts\CombatClash.cs" />
+    <Compile Include="Assets\scripts\ColliderAttack.cs" />
     <Compile Include="Assets\scripts\DamageAction.cs" />
     <Compile Include="Assets\scripts\DealDamage.cs" />
     <Compile Include="Assets\scripts\DestroyableSceneObject.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Assets\scripts\Fight2D.cs" />
     <Compile Include="Assets\scripts\ICommand.cs" />
     <Compile Include="Assets\scripts\JumpCommand.cs" />
+    <Compile Include="Assets\scripts\LightFlicker.cs" />
+    <Compile Include="Assets\scripts\LightTest.cs" />
     <Compile Include="Assets\scripts\MoveXCommand.cs" />
     <Compile Include="Assets\scripts\PatrolBehavior.cs" />
     <Compile Include="Assets\scripts\PlayerInterface.cs" />

@@ -22,11 +22,6 @@ public class TextAttack : MonoBehaviour
         Destroy(text);
     }
 
-    private void disableTextLamp()
-    {
-        Destroy(textLamp);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 9) {

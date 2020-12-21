@@ -6,7 +6,6 @@ public class ZombiController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float maxSpeed = 10f;
     //переменная для определения направления персонажа вправо/влево
     private bool isFacingRight = true;
 
@@ -20,7 +19,10 @@ public class ZombiController : MonoBehaviour
     public float stopDistX = 0;
     public bool canMove = true;
 
+    
     public ICommand attackCommand;
+    public ICommand bodyAttackCommand;
+    public ICommand motion;
 
 
     public float attackRadius;
@@ -54,6 +56,15 @@ public class ZombiController : MonoBehaviour
             //Fight2D.recoil(source.GetComponent<Rigidbody2D>(), takeDamageObj.transform.position, 15);
             StartCoroutine(disableControl(0.1f));
         };
+
+        motion = GetComponent<MoveXCommand>();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Player") {
+            attackCommand.Execute();
+        }
     }
 
     private void FixedUpdate()
@@ -61,10 +72,9 @@ public class ZombiController : MonoBehaviour
         if (target && canMove)
         {
             Vector2 sub = target.position - rb.position;
-
-            if (Mathf.Abs(sub.x) > stopDistX && Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y) {
-                float move = Mathf.Sign(sub.x);
-                ICommand motion = new MoveXCommand(rb, move * maxSpeed);
+            if (Mathf.Abs(sub.x) > stopDistX && Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y)
+            {
+                (motion as MoveXCommand).Direction = Mathf.Sign(sub.x);
                 motion.Execute();
             }
 
