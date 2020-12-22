@@ -11,6 +11,7 @@ public class DealDamage : MonoBehaviour, ICommand
     public float delay;
     private bool canAttack = true;
     public Vector2 offset;
+    public string skillName;
 
 
     public event System.Action attack;

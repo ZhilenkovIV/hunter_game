@@ -1053,6 +1053,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 162424492057893452, guid: d9e0adc340f7d4550897e26476cc2ac4,
+        type: 3}
+      propertyPath: skillName
+      value: SimpleAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 2598383969162140596, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}
       propertyPath: m_Name
@@ -1118,6 +1123,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 7077843954064854785, guid: d9e0adc340f7d4550897e26476cc2ac4,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9e0adc340f7d4550897e26476cc2ac4, type: 3}
 --- !u!1 &431370043
