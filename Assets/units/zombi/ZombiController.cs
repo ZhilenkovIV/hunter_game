@@ -6,16 +6,6 @@ public class ZombiController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    //переменная для определения направления персонажа вправо/влево
-    private bool isFacingRight = true;
-
-    public string targetTag;
-
-    [HideInInspector]
-    public Rigidbody2D target;
-
-    public Vector2 visibilityRect;
-    //public Vector2 lostRect;
     public float stopDistX = 0;
     public bool canMove = true;
 
@@ -37,15 +27,14 @@ public class ZombiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
 
-        GetComponent<TakeDamage>().damageAction +=
-            (n)=> {
-                Fight2D.recoil(GetComponent<Rigidbody2D>(), n.GetComponent<Rigidbody2D>().position, 15);
+        GetComponent<TakeDamageModel>().damageAction +=
+            ()=> {
+                //Fight2D.recoil(GetComponent<Rigidbody2D>(), rb.position, 15);
                 StartCoroutine(disableControl(0.1f));
             };
-        GetComponent<TakeDamage>().dieAction += () => Destroy(gameObject);
+        GetComponent<TakeDamageModel>().dieAction += () => Destroy(gameObject);
         attackCommand = GetComponent<DealDamage>();
 
         GetComponent<DealDamage>().attack += ()=> {
@@ -69,51 +58,8 @@ public class ZombiController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target && canMove)
-        {
-            Vector2 sub = target.position - rb.position;
-            if (Mathf.Abs(sub.x) > stopDistX && Mathf.Abs(sub.x) < visibilityRect.x && Mathf.Abs(sub.y) < visibilityRect.y)
-            {
-                (motion as MoveXCommand).Direction = Mathf.Sign(sub.x);
-                motion.Execute();
-            }
-
-            GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-
-            //если нажали клавишу для перемещения вправо, а персонаж направлен влево
-            if (rb.velocity.x > 0 && !isFacingRight)
-                //отражаем персонажа вправо
-                Flip();
-            //обратная ситуация. отражаем персонажа влево
-            else if (rb.velocity.x < 0 && isFacingRight)
-                Flip();
-
-            if ((rb.position - target.position).magnitude < 2 * attackRadius)
-            {
-                attackCommand.Execute();
-            }
-        }
+        GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(rb.velocity.x));
     }
 
-    /// <summary>
-    /// Метод для смены направления движения персонажа и его зеркального отражения
-    /// </summary>
-    private void Flip()
-    {
-        //меняем направление движения персонажа
-        isFacingRight = !isFacingRight;
-        //получаем размеры персонажа
-        Vector3 theScale = transform.localScale;
-        //зеркально отражаем персонажа по оси Х
-        theScale.x *= -1;
-        //задаем новый размер персонажа, равный старому, но зеркально отраженный
-        transform.localScale = theScale;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawWireCube(transform.position, visibilityRect);
-        Gizmos.DrawLine(transform.position - stopDistX * Vector3.right, transform.position + stopDistX * Vector3.right);
-    }
 
 }

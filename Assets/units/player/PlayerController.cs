@@ -10,27 +10,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    public float maxSpeed;
+
     public bool usePos = true;
     public VectorValue pos;
     //переменная для определения направления персонажа вправо/влево
     private bool isFacingRight = true;
 
-    //находится ли персонаж на земле или в прыжке?
-    [SerializeField]
-    private bool isGrounded = false;
-
-    public bool IsGrounded {
-        get {
-            return isGrounded;
-        }
-    }
-    //ссылка на компонент Transform объекта
-    //для определения соприкосновения с землей
-    private Transform groundCheck;
-    //радиус определения соприкосновения с землей
-    private float groundRadius = 0.1f;
-    //ссылка на слой, представляющий землю
-    public LayerMask whatIsGround;
+    private GroundCheck groundCheck;
 
     [SerializeField]
     private bool canInputHandle = true;
@@ -53,7 +40,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public System.Action Grounded;
+    //public System.Action Grounded;
 
     private delegate bool LampButtonIsPressed();
     private LampButtonIsPressed lampButtonIsPressed;
@@ -81,15 +68,21 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = pos.initialValue;
         }
-        groundCheck = transform.Find("GroundCheck");
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        GetComponent<TakeDamage>().damageAction += (n) =>
+
+        groundCheck = GetComponent<GroundCheck>();
+        anim.SetBool("Ground", groundCheck.IsGround);
+        groundCheck.GroundOut += () => anim.SetBool("Ground", groundCheck.IsGround);
+        groundCheck.GroundIn += () => anim.SetBool("Ground", groundCheck.IsGround);
+
+        GetComponent<TakeDamageModel>().damageAction += () =>
         {
-            Fight2D.recoil(rb, n.GetComponent<Rigidbody2D>().position, 15);
+            //Fight2D.recoil(rb, GetComponent<Rigidbody2D>().position, 15);
             StartCoroutine(disableInput(0.1f));
         };
-        GetComponent<TakeDamage>().dieAction += () => Destroy(gameObject);
+        GetComponent<TakeDamageModel>().dieAction += () => Destroy(gameObject);
 
         //jumpCommand = new JumpCommand(rb, jumpHeight);
         jumpCommand = GetComponent<JumpCommand>();
@@ -98,22 +91,13 @@ public class PlayerController : MonoBehaviour
         //при стандартных настройках проекта 
         //-1 возвращается при нажатии на клавиатуре стрелки влево (или клавиши А),
         //1 возвращается при нажатии на клавиатуре стрелки вправо (или клавиши D)
-        //motion = new MoveXCommand(rb, maxSpeed, ()=> Input.GetAxis("Horizontal"));
         motion = GetComponent<MoveXCommand>();
         lampCommand = GetComponent<LampCommand>();
 
-        attackCommand = GetComponent<DealDamage>();
+        attackCommand = GetComponent<PlayerSimpleAttack>();
 
         lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
 
-        GetComponent<DealDamage>().attack += () =>
-        {
-            anim.SetTrigger("Attack");
-            StartCoroutine(disableInput(0.2f));
-        };
-        GetComponent<DealDamage>().attackPass += (n)=> {
-            //Fight2D.recoil(rb, n.position, 20);
-        };
 
         PickUpEvent.Action += (s) =>
         {
@@ -131,12 +115,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
 	private void FixedUpdate()
     {
-        //определяем, на земле ли персонаж
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
 
         if (canInputHandle)
         {
-            (motion as MoveXCommand).Direction = Input.GetAxis("Horizontal");
+            (motion as MoveXCommand).speed = Input.GetAxis("Horizontal") * maxSpeed;
             motion.Execute();
         }
 
@@ -144,7 +126,7 @@ public class PlayerController : MonoBehaviour
         //приэтом нам нужен модуль значения
         anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         //устанавливаем соответствующую переменную в аниматоре
-        anim.SetBool("Ground", isGrounded);
+        //anim.SetBool("Ground", isGrounded);
         //устанавливаем в аниматоре значение скорости взлета/падения
         anim.SetFloat("vSpeed", rb.velocity.y);
 
@@ -163,7 +145,7 @@ public class PlayerController : MonoBehaviour
                     lampCommand.Undo();
             }
 
-            if (isGrounded && Input.GetKeyDown(jumpButton) && !lampIsActive)
+            if (groundCheck.IsGround && Input.GetKeyDown(jumpButton) && !lampIsActive)
             {
                 jumpCommand.Execute();
             }

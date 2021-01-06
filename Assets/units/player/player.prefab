@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d4e84ee72bcd4b58b793e8d685d0236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dealDamage: {fileID: 162424492057893452}
+  dealDamage: {fileID: 0}
 --- !u!199 &7077843954064854785
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5420,12 +5420,13 @@ GameObject:
   - component: {fileID: 2598383969162140599}
   - component: {fileID: 2598383969162140600}
   - component: {fileID: 2598383969162140601}
+  - component: {fileID: 2972559199662527161}
   - component: {fileID: 2598383969162140607}
-  - component: {fileID: 2598383969162140602}
-  - component: {fileID: 162424492057893452}
+  - component: {fileID: 5275381066244783614}
   - component: {fileID: 8501872414142080176}
   - component: {fileID: 7141985241584109556}
   - component: {fileID: 7234263934117821367}
+  - component: {fileID: 7518600765570118927}
   m_Layer: 9
   m_Name: player
   m_TagString: Player
@@ -5569,6 +5570,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &2972559199662527161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598383969162140596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d024daa8168b4106833e50b15408afa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkObjectName: GroundCheck
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &2598383969162140607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5581,16 +5598,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 297a5e87529e04464874504fd35d3279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 10
   usePos: 1
   pos: {fileID: 11400000, guid: adcbd9a07345a4bd496a2fb4f662220d, type: 2}
-  isGrounded: 0
-  lamp: {fileID: 2598383967583122520}
-  stroke: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
   canInputHandle: 1
---- !u!114 &2598383969162140602
+--- !u!114 &5275381066244783614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5599,33 +5611,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2598383969162140596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 495956792172546269b0d9f59c78c19b, type: 3}
+  m_Script: {fileID: 11500000, guid: fa17a1e1eb3054accb233604e867f216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  immunityTime: 0.5
-  immunityColor: {r: 0, g: 0.5850599, b: 0.9528302, a: 1}
-  isImmunuted: 0
   hp: 3
---- !u!114 &162424492057893452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2598383969162140596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09557cd0845f849d3a1793d0c3a7eb71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hit: 1
-  hitLayer:
-    serializedVersion: 2
-    m_Bits: 5120
-  attackRadius: 1.02
-  period: 0.5
-  delay: 0
-  offset: {x: 0.84, y: 0}
+  immunityTime: 0.5
+  immunityColor: {r: 0, g: 0.59395885, b: 1, a: 1}
+  isImmunuted: 0
 --- !u!114 &8501872414142080176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5665,6 +5657,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lamp: {fileID: 2598383967583122520}
+--- !u!114 &7518600765570118927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598383969162140596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e748357f57b2e492a96e1370c5dea95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hit: 1
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackRadius: 1.02
+  period: 0.5
+  offset: {x: 0.84, y: 0}
 --- !u!1 &7145474237503221976
 GameObject:
   m_ObjectHideFlags: 0

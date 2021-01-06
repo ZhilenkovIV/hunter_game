@@ -31,7 +31,7 @@ public class LevelChangerTrigger : MonoBehaviour
             enterDistance.x = Mathf.Sign(enterDistance.x);
             enterDistance.y = Mathf.Sign(enterDistance.y);
 
-            move.Direction = enterDistance.x;
+            move.speed = enterDistance.x * move.speed;
         }
     }
 

@@ -21,36 +21,36 @@ public class DealDamage : MonoBehaviour, ICommand
     private IEnumerator action()
     {
         canAttack = false;
+        IsCoolDown = true;
         if(attack != null)
             attack();
         yield return new WaitForSeconds(delay);
-        //yield return currentTime < delay;
         Vector2 position = transform.position;
         Vector2 currentOffset = offset;
         currentOffset.x *= Mathf.Sign(transform.localScale.x);
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position + currentOffset, attackRadius, hitLayer);
-
-        foreach (Collider2D hit in colliders)
+        foreach (Collider2D c in colliders)
         {
-            TakeDamage target = hit.GetComponent<TakeDamage>();
+            TakeDamageModel target = c.GetComponent<TakeDamageModel>();
             if (target!= null && !target.isImmunuted)
             {
-                hit.GetComponent<TakeDamage>().damage(this);
+                target.HealthPoints -= hit;
                 if(attackPass != null)
-                    attackPass(hit.transform);
+                    attackPass(c.transform);
             }
         }
         yield return new WaitForSeconds(period);
+        IsCoolDown = false;
         canAttack = true;
     }
-
-
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position + new Vector3(Mathf.Sign(transform.localScale.x) * offset.x, offset.y,0), attackRadius);
     }
+
+    public bool IsCoolDown { get; private set; }
 
     public void Execute()
     {

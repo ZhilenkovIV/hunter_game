@@ -5,6 +5,15 @@ using UnityEngine;
 public class MorticianController : MonoBehaviour
 {
 
+    private MoveXCommand motion;
+    private DealDamage stroke;
+    private ICommand charge;
+    private Animator animator;
+    private Rigidbody2D player;
+    private Rigidbody2D rb;
+
+    public float maxSpeed;
+
     IEnumerator cameraTarget(float time) {
         Camera.current.GetComponent<CameraController>().followObject = gameObject.transform;
         yield return new WaitForSeconds(time);
@@ -14,13 +23,20 @@ public class MorticianController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //EventTrigger.Action += (s) =>
-        //{
-        //    if (s == "fall")
-        //    {
-        //        GetComponent<Animator>().SetTrigger("dig");
-        //    }
-        //};
+        motion = GetComponent<MoveXCommand>();
+        stroke = GetComponent<DealDamage>();
+        charge = GetComponent<MorticianCharge>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        stroke.attack += () => animator.SetTrigger("stroke");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
     }
+
+    private void Update()
+    {
+        //charge.Execute();
+        //stroke.Execute();
+    }
+
 
 }

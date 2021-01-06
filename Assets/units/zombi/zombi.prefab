@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 8886079987506344938}
   - component: {fileID: 8886079987506344937}
   - component: {fileID: 8886079987506344940}
-  - component: {fileID: 8886079987506344942}
+  - component: {fileID: 9032286295583194451}
   - component: {fileID: 8886079987506344941}
   - component: {fileID: 8886079987506344943}
   - component: {fileID: 5307450705289600126}
   - component: {fileID: 60023588881413788}
   - component: {fileID: 6566148721999134451}
+  - component: {fileID: 7148468334179417066}
   m_Layer: 10
   m_Name: zombi
   m_TagString: Untagged
@@ -137,7 +138,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8886079987506344942
+--- !u!114 &9032286295583194451
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,13 +147,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8886079987506344936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 495956792172546269b0d9f59c78c19b, type: 3}
+  m_Script: {fileID: 11500000, guid: fa17a1e1eb3054accb233604e867f216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 2
   immunityTime: 0.2
   immunityColor: {r: 1, g: 0, b: 0, a: 1}
   isImmunuted: 0
-  hp: 3
 --- !u!114 &8886079987506344941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,10 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd70da2751f404cdfb69b8c385466d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
-  targetTag: Player
-  target: {fileID: 0}
-  visibilityRect: {x: 14, y: 2}
   stopDistX: 1
   canMove: 1
   attackRadius: 0.76
@@ -227,6 +224,7 @@ MonoBehaviour:
   period: 1
   delay: 0.4
   offset: {x: 0.27, y: 0}
+  skillName: 
 --- !u!114 &6566148721999134451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,4 +237,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e13e8aad55e842c99a7dec9f052edc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+--- !u!114 &7148468334179417066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886079987506344936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05587d29def4a406fb850527c8627b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Player
   maxSpeed: 4
+  isFollowing: 0
+  zoneOfDetecting: {x: 6.94, y: 1.67}
+  minDistance: {x: 2, y: 1.94}
+  zoneOfLosting: {x: 10.91, y: 2.49}
+  target: {fileID: 0}
