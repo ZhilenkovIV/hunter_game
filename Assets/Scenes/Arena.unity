@@ -275,13 +275,14 @@ GameObject:
   - component: {fileID: 719181483}
   - component: {fileID: 719181482}
   - component: {fileID: 719181481}
-  - component: {fileID: 719181480}
   - component: {fileID: 719181479}
   - component: {fileID: 719181485}
   - component: {fileID: 719181484}
   - component: {fileID: 719181486}
   - component: {fileID: 719181487}
   - component: {fileID: 719181488}
+  - component: {fileID: 719181480}
+  - component: {fileID: 719181489}
   m_Layer: 10
   m_Name: mortician
   m_TagString: Untagged
@@ -317,18 +318,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 719181478}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09557cd0845f849d3a1793d0c3a7eb71, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ea06a1ffb59047eca066c6b8827d5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit: 0
+  hit: 1
   hitLayer:
     serializedVersion: 2
     m_Bits: 512
   attackRadius: 2.26
-  period: 0.2
+  period: 2.5
   delay: 1.2
   offset: {x: 2.25, y: -0.57}
-  skillName: stroke
+  skillName: 
 --- !u!114 &719181481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,11 +495,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: Player
   maxSpeed: 3
-  isFollowing: 0
   zoneOfDetecting: {x: 16.3, y: 11.11}
   minDistance: {x: 7.9, y: 7.85}
   zoneOfLosting: {x: 34.48, y: 19.7}
   target: {fileID: 0}
+  isActive: 1
+--- !u!114 &719181489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719181478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa17a1e1eb3054accb233604e867f216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 20
+  immunityTime: 0.2
+  immunityColor: {r: 1, g: 0, b: 0, a: 1}
+  isImmunuted: 0
 --- !u!1001 &1132077410
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1103,6 +1120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5275381066244783614, guid: d9e0adc340f7d4550897e26476cc2ac4,
+        type: 3}
+      propertyPath: immunityTime
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7518600765570118927, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}

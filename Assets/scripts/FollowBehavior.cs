@@ -8,7 +8,9 @@ public class FollowBehavior : MonoBehaviour
     private Rigidbody2D rb;
     private MoveXCommand motion;
     public float maxSpeed;
-    public bool isFollowing = false;
+
+    public bool IsFollowing { get; private set; }
+    public bool IsInMinDistance { get; private set; }
     private bool isFacingRight;
 
     public Vector2 zoneOfDetecting;
@@ -20,6 +22,8 @@ public class FollowBehavior : MonoBehaviour
     private Rect zoneOfLostingRect;
 
     public Rigidbody2D target;
+
+    public bool canMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,28 +46,35 @@ public class FollowBehavior : MonoBehaviour
             minDistanceRect.center = rb.position;
 
             Vector2 distance = target.position - rb.position;
-            if (!isFollowing && zoneOfDetectingRect.Contains(target.position)) {
-                isFollowing = true;
+            if (!IsFollowing && zoneOfDetectingRect.Contains(target.position)) {
+                IsFollowing = true;
             }
 
-            if (isFollowing && !minDistanceRect.Contains(target.position)) {
-                
-                motion.speed = Mathf.Sign(distance.x) * maxSpeed;
-                motion.Execute();
-            }
+            IsInMinDistance = minDistanceRect.Contains(target.position);
 
-            if (isFollowing && !zoneOfLostingRect.Contains(target.position))
+            if (canMove)
             {
-                isFollowing = false;
+                if (IsFollowing && !IsInMinDistance)
+                {
+
+                    motion.speed = Mathf.Sign(distance.x) * maxSpeed;
+                    motion.Execute();
+                }
+
+                //если нажали клавишу для перемещения вправо, а персонаж направлен влево
+                if (distance.x > 0 && !isFacingRight)
+                    //отражаем персонажа вправо
+                    Flip();
+                //обратная ситуация. отражаем персонажа влево
+                else if (distance.x < 0 && isFacingRight)
+                    Flip();
             }
 
-            //если нажали клавишу для перемещения вправо, а персонаж направлен влево
-            if (distance.x > 0 && !isFacingRight)
-                //отражаем персонажа вправо
-                Flip();
-            //обратная ситуация. отражаем персонажа влево
-            else if (distance.x < 0 && isFacingRight)
-                Flip();
+            if (IsFollowing && !zoneOfLostingRect.Contains(target.position))
+            {
+                IsFollowing = false;
+            }
+
         }
     }
 

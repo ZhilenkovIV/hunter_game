@@ -14,6 +14,8 @@ public class TakeDamageModel : MonoBehaviour
     public event System.Action dieAction;
     public event System.Action damageAction;
 
+
+
     public void Start()
     {
         unitLayer = gameObject.layer;

@@ -6,11 +6,13 @@ public class MorticianController : MonoBehaviour
 {
 
     private MoveXCommand motion;
-    private DealDamage stroke;
+    private MorticianStroke stroke;
     private ICommand charge;
     private Animator animator;
     private Rigidbody2D player;
     private Rigidbody2D rb;
+
+    private FollowBehavior follow;
 
     public float maxSpeed;
 
@@ -24,18 +26,23 @@ public class MorticianController : MonoBehaviour
     void Start()
     {
         motion = GetComponent<MoveXCommand>();
-        stroke = GetComponent<DealDamage>();
+        stroke = GetComponent<MorticianStroke>();
         charge = GetComponent<MorticianCharge>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        stroke.attack += () => animator.SetTrigger("stroke");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
+        follow = GetComponent<FollowBehavior>();
+
     }
 
     private void Update()
     {
+
         //charge.Execute();
-        //stroke.Execute();
+        if (follow.IsInMinDistance)
+        {
+            stroke.Execute();
+        }
     }
 
 

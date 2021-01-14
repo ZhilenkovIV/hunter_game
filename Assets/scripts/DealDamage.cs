@@ -15,6 +15,7 @@ public class DealDamage : MonoBehaviour, ICommand
 
 
     public event System.Action attack;
+    public event System.Action EndAttack;
 
     public event System.Action<Transform> attackPass;
 
@@ -40,6 +41,7 @@ public class DealDamage : MonoBehaviour, ICommand
                     attackPass(c.transform);
             }
         }
+        EndAttack?.Invoke();
         yield return new WaitForSeconds(period);
         IsCoolDown = false;
         canAttack = true;
