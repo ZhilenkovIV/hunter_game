@@ -32,7 +32,6 @@ public class ZombiController : MonoBehaviour
 
         GetComponent<TakeDamageModel>().damageAction +=
             (n)=> {
-                Debug.Log(Mathf.Sign(n.transform.lossyScale.x));
                 rb.AddForce(15 * Mathf.Sign(n.transform.lossyScale.x) * Vector2.right, ForceMode2D.Impulse);
                 //Fight2D.recoil(GetComponent<Rigidbody2D>(), rb.position, 15);
                 StartCoroutine(disableControl(0.1f));
@@ -55,6 +54,7 @@ public class ZombiController : MonoBehaviour
             attackCommand.Execute();
         }
     }
+
 
 
 }

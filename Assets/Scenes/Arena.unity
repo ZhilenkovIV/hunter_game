@@ -1045,10 +1045,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4625245334428725705, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: delay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4625245334428725705, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: period
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8886079987506344936, guid: 34afe6b4d218447b8a4d73daa4cc933e,
         type: 3}
       propertyPath: m_Name
       value: zombi
+      objectReference: {fileID: 0}
+    - target: {fileID: 8886079987506344936, guid: 34afe6b4d218447b8a4d73daa4cc933e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8886079987506344939, guid: 34afe6b4d218447b8a4d73daa4cc933e,
         type: 3}

@@ -16,6 +16,7 @@ public class ZombiAttack : MonoBehaviour, ICommand
     private IEnumerator attack() {
         float currentTime = 0;
         animator.SetTrigger("Attack");
+        canAttack = false;
         yield return null;
         for (; currentTime < delay; currentTime += Time.deltaTime) {
             yield return null;
@@ -31,6 +32,11 @@ public class ZombiAttack : MonoBehaviour, ICommand
                 target.damageAction?.Invoke(model);
             }
         }
+        for (; currentTime < period; currentTime += Time.deltaTime)
+        {
+            yield return null;
+        }
+        canAttack = true;
     }
 
     public void Execute()
@@ -52,9 +58,9 @@ public class ZombiAttack : MonoBehaviour, ICommand
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDrawGizmosSelected()
     {
-        
+        Gizmos.DrawWireSphere(model.transform.position, attackRadius);
     }
+
 }

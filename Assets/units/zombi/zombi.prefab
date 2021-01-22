@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a86a44067d5e47d5bc3fb24ae3a6952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit: 0
+  hit: 1
   hitLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -215,7 +215,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stopDistX: 1
-  canMove: 1
   attackRadius: 0.76
 --- !u!95 &8886079987506344943
 Animator:
@@ -297,7 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3239131781251525481}
-  delay: 0
-  period: 1
-  attackRadius: 0
+  delay: 0.5
+  period: 1.5
+  attackRadius: 0.4
   canAttack: 1
