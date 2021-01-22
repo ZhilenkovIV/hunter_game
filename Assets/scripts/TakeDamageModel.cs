@@ -12,7 +12,7 @@ public class TakeDamageModel : MonoBehaviour
     public bool isImmunuted = false;
 
     public event System.Action dieAction;
-    public event System.Action damageAction;
+    public System.Action<HitModel> damageAction;
 
 
 
@@ -44,7 +44,6 @@ public class TakeDamageModel : MonoBehaviour
                 if (value <= hp)
                 {
                     hp = value;
-                    damageAction();
                     if (value <= 0)
                     {
                         hp = 0;

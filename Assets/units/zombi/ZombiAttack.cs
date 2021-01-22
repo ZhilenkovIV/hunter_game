@@ -1,0 +1,60 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ZombiAttack : MonoBehaviour, ICommand
+{
+    public HitModel model;
+    private Animator animator;
+
+    public float delay;
+    public float period;
+    public float attackRadius;
+
+    public bool canAttack = true;
+
+    private IEnumerator attack() {
+        float currentTime = 0;
+        animator.SetTrigger("Attack");
+        yield return null;
+        for (; currentTime < delay; currentTime += Time.deltaTime) {
+            yield return null;
+        }
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(model.transform.position, attackRadius, model.hitLayer);
+        foreach (Collider2D c in colliders)
+        {
+            TakeDamageModel target = c.GetComponent<TakeDamageModel>();
+            if (target != null && !target.isImmunuted)
+            {
+                target.HealthPoints -= model.hit;
+                model.HitAction?.Invoke(target);
+                target.damageAction?.Invoke(model);
+            }
+        }
+    }
+
+    public void Execute()
+    {
+        if (canAttack)
+        {
+            StartCoroutine(attack());
+        }
+    }
+
+    public void Undo()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

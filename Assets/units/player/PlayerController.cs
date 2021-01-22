@@ -69,6 +69,8 @@ public class PlayerController : MonoBehaviour
             transform.position = pos.initialValue;
         }
 
+        attackCommand = GetComponent<PlayerAttack>();
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
@@ -77,9 +79,10 @@ public class PlayerController : MonoBehaviour
         groundCheck.GroundOut += () => anim.SetBool("Ground", groundCheck.IsGround);
         groundCheck.GroundIn += () => anim.SetBool("Ground", groundCheck.IsGround);
 
-        GetComponent<TakeDamageModel>().damageAction += () =>
+        GetComponent<TakeDamageModel>().damageAction += (n) =>
         {
-            //Fight2D.recoil(rb, GetComponent<Rigidbody2D>().position, 15);
+            rb.AddForce(15 * Mathf.Sign(n.transform.lossyScale.x) * Vector2.right, ForceMode2D.Impulse);
+            //Fight2D.recoil(rb, n.transform.position, 15);
             StartCoroutine(disableInput(0.1f));
         };
         GetComponent<TakeDamageModel>().dieAction += () => Destroy(gameObject);
@@ -94,7 +97,6 @@ public class PlayerController : MonoBehaviour
         motion = GetComponent<MoveXCommand>();
         lampCommand = GetComponent<LampCommand>();
 
-        attackCommand = GetComponent<PlayerSimpleAttack>();
 
         lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
 
