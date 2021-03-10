@@ -6,12 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Crypt.unity
+    path: Assets/BusinessLogic/Scenes/Crypt/Crypt.unity
     guid: d02b4c1b4cf8a4841b051e47a08c062f
   - enabled: 1
-    path: Assets/Scenes/Cemetry/Cemetery.unity
+    path: Assets/BusinessLogic/Scenes/Cemetry/Cemetery.unity
     guid: d34ec02ddb6c94dfc8b3ad7b765b4b44
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/BusinessLogic/Scenes/SampleScene/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/BusinessLogic/Scenes/Arena/Arena.unity
+    guid: 9c9f302118e494bbc9542ec4f7df5797
+  - enabled: 1
+    path: Assets/BusinessLogic/Scenes/Catacomb/Catacombs.unity
+    guid: de4378dfaffb84cb89df46658d932e9b
   m_configObjects: {}
