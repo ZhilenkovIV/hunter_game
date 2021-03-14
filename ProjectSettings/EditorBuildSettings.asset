@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/BusinessLogic/Scenes/TitleMenu/TitleMenu.unity
+    guid: 7120df3ecb3774df3a2add10f835f773
+  - enabled: 1
     path: Assets/BusinessLogic/Scenes/Crypt/Crypt.unity
     guid: d02b4c1b4cf8a4841b051e47a08c062f
   - enabled: 1

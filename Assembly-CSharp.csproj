@@ -83,6 +83,8 @@
      <Compile Include="Assets\BusinessLogic\Scripts\properties\InitPosition.cs" />
      <Compile Include="Assets\BusinessLogic\Scripts\properties\LightFlicker.cs" />
      <Compile Include="Assets\BusinessLogic\Scripts\scene\LevelChanger.cs" />
+     <Compile Include="Assets\BusinessLogic\Scripts\scene\LevelTrigger.cs" />
+     <Compile Include="Assets\BusinessLogic\Scripts\scene\MyLoadScene.cs" />
      <Compile Include="Assets\BusinessLogic\Scripts\scene\SceneInfo.cs" />
      <Compile Include="Assets\BusinessLogic\Scripts\scene\VectorValue.cs" />
      <Compile Include="Assets\BusinessLogic\Units\mortician\scripts\MorticianCharge.cs" />
