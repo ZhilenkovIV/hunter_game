@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         };
+        
     }
 
     /// Выполняем действия в методе FixedUpdate, т. к. в компоненте Animator персонажа

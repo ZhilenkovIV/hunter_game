@@ -522,6 +522,11 @@ PrefabInstance:
       propertyPath: m_MaxParticleSize
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 1924016169321202745, guid: d9e0adc340f7d4550897e26476cc2ac4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2068754495830276350, guid: d9e0adc340f7d4550897e26476cc2ac4,
         type: 3}
       propertyPath: m_CullingMode
