@@ -101,6 +101,12 @@ public class PlayerController : MonoBehaviour
 	private void FixedUpdate()
     {
 
+        
+
+    }
+
+    private void Update()
+    {
         if (canInputHandle)
         {
             motion.SetSpeedX(Input.GetAxis("Horizontal") * maxSpeed);
@@ -115,10 +121,6 @@ public class PlayerController : MonoBehaviour
         //устанавливаем в аниматоре значение скорости взлета/падения
         anim.SetFloat("vSpeed", rb.velocity.y);
 
-    }
-
-    private void Update()
-    {
         if (canInputHandle)
         {
             bool lampIsActive = (lampCommand as LampCommand).lamp.activeSelf;
