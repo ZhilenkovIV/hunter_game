@@ -6,25 +6,23 @@ public class ZombiController : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float stopDistX = 0;
-
     public ICommand attackCommand;
-    public ICommand bodyAttackCommand;
     public IMotion motion;
 
     public float attackRadius;
 
     public Detector detectPlayer;
     public Detector lostZone;
-    private Follower follower;
-    private Patroler patroler;
-
+    public Detector attackZone;
 
     public string targetTag = "Player";
     private Rigidbody2D target;
 
+    private UnitStateMachine stateMachine;
+
+
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
@@ -36,32 +34,45 @@ public class ZombiController : MonoBehaviour
 
         attackCommand = GetComponent<ZombiAttack>();
 
-        follower = GetComponent<Follower>();
-        patroler = GetComponent<Patroler>();
+
+        stateMachine = GetComponent<UnitStateMachine>();
+
+        Patroler patroler = new Patroler(transform, stateMachine, transform.position)
+        {
+            speed = 2f,
+            time = 3f
+        };
+        Follower follower = new Follower(transform, stateMachine)
+        {
+            maxSpeed = 3f
+        };
+
+        stateMachine.SetState(patroler);
+
 
         target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
-        detectPlayer.Enter += () => {
-            if(!follower.enabled){
-                follower.enabled = true;
-                follower.SetTarget(target);
-                patroler.enabled = false;
-            }
-        };
-        lostZone.Exit += () => {
-            if(follower.enabled){
-                follower.ClearTarget();
-                follower.enabled = false;
-                patroler.point = rb.position;
-                patroler.enabled = true;
-                motion.Suspend(2.0f);
+        follower.SetTarget(target);
+
+
+        detectPlayer.Enter += () => stateMachine.SetState(follower);
+
+        attackZone.Enter += () => stateMachine.SetState(new IdleState(transform, stateMachine));
+        attackZone.Stay += () => attackCommand.Execute();
+        attackZone.Exit += () => stateMachine.SetState(follower);
+
+        lostZone.Exit += () =>
+        {
+            if (stateMachine.currentState == follower)
+            {
+                stateMachine.SetState(new WaitState(transform, stateMachine, 1, new MoveToPoint(transform, stateMachine, patroler.point, patroler)));
             }
         };
     }
 
-    private void FixedUpdate()
+
+    public void FixedUpdate()
     {
         GetComponent<Animator>().SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        //attackCommand.Execute();
     }
 
 

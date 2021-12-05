@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Follower : MonoBehaviour
+public class Follower : BaseUnitState
 {
     public float maxSpeed;
 
@@ -11,21 +11,12 @@ public class Follower : MonoBehaviour
     private IMotion motion;
 
     // Start is called before the first frame update
-    void Start()
+    public Follower(Transform transfrom, IUnitStateSwitcher switcher)
+        : base(transfrom, switcher)
     {
-        motion = GetComponent<IMotion>();
-        rb = GetComponent<Rigidbody2D>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (target){
-			Vector2 distance = target.position - rb.position;
-        	Vector2 dir = new Vector2(Mathf.Sign(distance.x), Mathf.Sign(distance.y));
-        	motion.SetSpeed(dir * maxSpeed);
-            motion.Execute();
-        }
+        motion = transfrom.GetComponent<IMotion>();
+        rb = transfrom.GetComponent<Rigidbody2D>();
     }
 
     public void SetTarget(Rigidbody2D target){
@@ -34,5 +25,30 @@ public class Follower : MonoBehaviour
 
     public void ClearTarget(){
         target = null;
+    }
+
+    public override void Entry()
+    {
+        
+    }
+
+    public override void LogicUpdate()
+    {
+        if (target)
+        {
+            Vector2 distance = target.position - rb.position;
+            Vector2 dir = new Vector2(Mathf.Sign(distance.x), Mathf.Sign(distance.y));
+            motion.SetSpeed(dir * maxSpeed);
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        motion.Execute();
+    }
+
+    public override void Exit()
+    {
+        motion.SetSpeed(new Vector2(0, rb.velocity.y));
     }
 }

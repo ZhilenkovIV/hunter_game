@@ -1,5 +1,78 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &599090175744300420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3811701231165220106}
+  - component: {fileID: 8094303078274369118}
+  - component: {fileID: 6972125902014357605}
+  m_Layer: 0
+  m_Name: AttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3811701231165220106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599090175744300420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8886079987506344939}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &8094303078274369118
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599090175744300420}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 8.8, y: 8.35}
+  m_EdgeRadius: 0
+--- !u!114 &6972125902014357605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599090175744300420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72a2057a67fd496d8a2422d511dcd8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &603904053074111898
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,8 +284,7 @@ GameObject:
   - component: {fileID: 8886079987506344943}
   - component: {fileID: 5307450705289600126}
   - component: {fileID: 4625245334428725705}
-  - component: {fileID: -8885380786698241078}
-  - component: {fileID: 7081377269695456007}
+  - component: {fileID: 2401848340366721635}
   m_Layer: 10
   m_Name: zombi
   m_TagString: Untagged
@@ -234,6 +306,7 @@ Transform:
   - {fileID: 2803372980342601367}
   - {fileID: 491814525183286199}
   - {fileID: 5345070018622481302}
+  - {fileID: 3811701231165220106}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -252,6 +325,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -376,10 +450,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd70da2751f404cdfb69b8c385466d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stopDistX: 1
   attackRadius: 0.76
   detectPlayer: {fileID: 3042555562864905317}
   lostZone: {fileID: 1843396030160321201}
+  attackZone: {fileID: 6972125902014357605}
   targetTag: Player
 --- !u!95 &8886079987506344943
 Animator:
@@ -433,21 +507,7 @@ MonoBehaviour:
   period: 1.5
   attackRadius: 0.4
   canAttack: 1
---- !u!114 &-8885380786698241078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8886079987506344936}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff3ca3d46d6d44e4991edc17d3e3d9b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 4
-  target: {fileID: 0}
---- !u!114 &7081377269695456007
+--- !u!114 &2401848340366721635
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,11 +516,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8886079987506344936}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863e05545a2ce496bb6cb4a957203376, type: 3}
+  m_Script: {fileID: 11500000, guid: 232863d0355db4133bcdbc588c12b39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  maxDistance: 3
-  time: 2
-  wait: 1
-  point: {x: 0, y: 0}

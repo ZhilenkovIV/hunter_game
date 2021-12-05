@@ -79,8 +79,8 @@ public class PlayerController : MonoBehaviour
         lampCommand = GetComponent<LampCommand>();
 
 
-        lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
-        //lampButtonIsPressed = () => false;
+        //lampButtonIsPressed = () => Input.GetKeyDown(lampButton);
+        lampButtonIsPressed = () => false;
 
 
         PickUpEvent.Action += (s) =>
@@ -100,8 +100,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
 	private void FixedUpdate()
     {
+        motion.Execute();
 
-        
 
     }
 
@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
         if (canInputHandle)
         {
             motion.SetSpeedX(Input.GetAxis("Horizontal") * maxSpeed);
-            motion.Execute();
+            
         }
 
         //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.

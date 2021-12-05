@@ -2,27 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveToPoint : MonoBehaviour
+public class MoveToPoint : BaseUnitState
 {
 	public Vector2 destination;
 	public Vector2 speed;
 
-	private IMotion motion;
-	private Rigidbody2D rb;
+	private readonly IMotion motion;
+	private readonly Rigidbody2D rb;
+    private readonly BaseUnitState _nextState;
 
-    // Start is called before the first frame update
-    void Start()
+    public MoveToPoint(Transform unit, IUnitStateSwitcher switcher, Vector2 destination, BaseUnitState nextState)
+        : base(unit, switcher)
     {
-    	rb = GetComponent<Rigidbody2D>();
-    	motion = GetComponent<IMotion>();    
+        rb = unit.GetComponent<Rigidbody2D>();
+        motion = unit.GetComponent<IMotion>();
+        _nextState = nextState;
+        this.destination = destination;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Entry()
     {
-        if(Vector2.Distance(rb.position, destination) > 0.1f){
-        	motion.SetSpeed(speed);
-        	motion.Execute();
+        
+    }
+
+    public override void Exit()
+    {
+
+    }
+
+    public override void LogicUpdate()
+    {
+        if (Vector2.Distance(rb.position, destination) > 0.1f)
+        {
+            motion.SetSpeed(speed);
+            Debug.Log(speed);
+        }
+        else {
+            _switcher.SetState(_nextState);
         }
     }
+
+    public override void PhysicsUpdate()
+    {
+        motion.Execute();
+    }
+
 }

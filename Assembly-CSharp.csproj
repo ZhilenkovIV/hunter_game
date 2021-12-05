@@ -95,12 +95,16 @@
     <Compile Include="Assets/BusinessLogic/Scripts/properties/Detection.cs" />
     <Compile Include="Assets/BusinessLogic/Scripts/behaviors/Follower.cs" />
     <Compile Include="Assets/BusinessLogic/Scripts/combat/BodyHit.cs" />
-    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/PatrolBehavior.cs" />
     <Compile Include="Assets/BusinessLogic/Scripts/properties/DestroyableSceneObject.cs" />
     <Compile Include="Assets/BusinessLogic/Units/zombie/scripts/ZombiAttack.cs" />
     <Compile Include="Assets/BusinessLogic/Scripts/commands/ICommand.cs" />
     <Compile Include="Assets/BusinessLogic/Scripts/commands/AttackCommand.cs" />
     <Compile Include="Assets/BusinessLogic/Units/player/scripts/PickUpEvent.cs" />
+    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/UnitStateMachine.cs" />
+    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/IdleState.cs" />
+    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/WaitState.cs" />
+    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/IUnitStateSwitcher.cs" />
+    <Compile Include="Assets/BusinessLogic/Scripts/behaviors/BaseUnitState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

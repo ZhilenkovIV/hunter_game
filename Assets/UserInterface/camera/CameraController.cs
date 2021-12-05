@@ -36,7 +36,8 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if (followObject) {
-            Vector3 temp = new Vector3(destination.x, destination.y, 0) - transform.position;
+            transform.position = new Vector3(followObject.position.x, followObject.position.y, transform.position.z);
+            /*Vector3 temp = new Vector3(destination.x, destination.y, 0) - transform.position;
             transform.position += new Vector3(temp.x / 32, temp.y / 32, 0);
             Vector3 offset = maxOffset;
             if (followObject.localScale.x > 0)
@@ -48,14 +49,13 @@ public class CameraController : MonoBehaviour
             {
                 destination.x = followObject.position.x - offset.x;
                 destination.y = followObject.position.y + offset.y;
-            }
+            }*/
             
 
             float clampX = Mathf.Clamp(transform.position.x, sceneArea.xMin + cameraWorldHalfSize.x, sceneArea.xMax - cameraWorldHalfSize.x);
             float clampY = Mathf.Clamp(transform.position.y, sceneArea.yMin + cameraWorldHalfSize.y, sceneArea.yMax - cameraWorldHalfSize.y);
             transform.position = new Vector3(clampX, clampY, transform.position.z);
         }
-
 
     }
 
