@@ -63,10 +63,10 @@ GameObject:
   - component: {fileID: 7227793774245117724}
   - component: {fileID: 7227793774245117726}
   - component: {fileID: 7227793774245117727}
-  - component: {fileID: 7227793774245117696}
   - component: {fileID: 7227793774245117720}
   - component: {fileID: 7227793774245117697}
   - component: {fileID: 7227793774245117698}
+  - component: {fileID: 7226869833468303096}
   m_Layer: 10
   m_Name: mortician
   m_TagString: Untagged
@@ -105,6 +105,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -248,25 +249,6 @@ MonoBehaviour:
   cooldownTime: 6
   passes: []
   attackRadius: 1
---- !u!114 &7227793774245117696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7227793774245117718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05587d29def4a406fb850527c8627b22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTag: Player
-  maxSpeed: 3
-  zoneOfDetecting: {x: 16.3, y: 11.11}
-  minDistance: {x: 7.9, y: 7.85}
-  zoneOfLosting: {x: 34.48, y: 19.7}
-  target: {fileID: 0}
-  canMove: 1
 --- !u!114 &7227793774245117720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +301,18 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 512
-  maxSizeOverlaps: 10
+--- !u!114 &7226869833468303096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7227793774245117718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 232863d0355db4133bcdbc588c12b39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7227793774547806794
 GameObject:
   m_ObjectHideFlags: 0

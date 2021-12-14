@@ -32,7 +32,6 @@ public class MorticianCharge : MonoBehaviour, ICommand
 
     private IEnumerator attackProcess()
     {
-        GetComponent<FollowBehavior>().canMove = false;
         animator.SetTrigger("charge");
         while (!animator.GetCurrentAnimatorStateInfo(0).IsName("PrepareCharge")) { 
             yield return null;
@@ -65,7 +64,6 @@ public class MorticianCharge : MonoBehaviour, ICommand
         passes.Clear();
         move.speed = 0;
         move.Execute();
-        GetComponent<FollowBehavior>().canMove = true;
     }
 
     public void Execute()

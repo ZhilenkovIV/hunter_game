@@ -5,22 +5,22 @@ using UnityEngine;
 public class UnitStateMachine : MonoBehaviour, IUnitStateSwitcher
 {
 
-    private List<BaseUnitState> states;
+    public List<BaseUnitState> states;
 
-    public BaseUnitState currentState;
+    private BaseUnitState currentState;
 
-    public UnitStateMachine() {
-        states = new List<BaseUnitState>();
-    }
-
-    public void AddState(BaseUnitState state) {
-        states.Add(state);
-    }
 
     // Start is called before the first frame update
     public void Start()
     {
         currentState = new IdleState(transform, this);
+        states = new List<BaseUnitState>();
+    }
+
+
+    public void AddState(BaseUnitState state)
+    {
+        states.Add(state);
     }
 
     // Update is called once per frame
@@ -42,4 +42,15 @@ public class UnitStateMachine : MonoBehaviour, IUnitStateSwitcher
         currentState.Entry();
     }
 
+    public void SetState<T>() where T : BaseUnitState
+    {
+        currentState.Exit();
+        currentState = states.Find((n) => n is T);
+    }
+
+    public void Initialize(BaseUnitState state)
+    {
+        currentState = state;
+        currentState.Entry();
+    }
 }

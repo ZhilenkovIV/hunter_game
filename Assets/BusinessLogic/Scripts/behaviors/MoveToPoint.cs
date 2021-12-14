@@ -35,7 +35,6 @@ public class MoveToPoint : BaseUnitState
         if (Vector2.Distance(rb.position, destination) > 0.1f)
         {
             motion.SetSpeed(speed);
-            Debug.Log(speed);
         }
         else {
             _switcher.SetState(_nextState);

@@ -7,8 +7,10 @@ public class MoveXCommand : MonoBehaviour, IMotion
 {
     private Rigidbody2D rb;
 
-    [HideInInspector]
+    //[HideInInspector]
     public float speed;
+
+    //public float BaseAttack;
 
     private bool canMove = true;
 

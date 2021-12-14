@@ -25,6 +25,7 @@ public class FallEvent : MonoBehaviour
             Destroy(b);
         }
         player.CanInputHandle = true;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

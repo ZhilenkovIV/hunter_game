@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public ICommand attackCommand;
     [HideInInspector]
-    public IMotion motion;
+    public MoveXCommand motion;
 
     public IEnumerator disableInput(float deltaTime){
         canInputHandle = false;
@@ -100,17 +100,31 @@ public class PlayerController : MonoBehaviour
     /// </summary>
 	private void FixedUpdate()
     {
+
         motion.Execute();
-
-
     }
 
     private void Update()
     {
         if (canInputHandle)
         {
-            motion.SetSpeedX(Input.GetAxis("Horizontal") * maxSpeed);
-            
+            //motion.SetSpeedX(Input.GetAxis("Horizontal") * maxSpeed);
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            motion.speed -= maxSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            motion.speed += maxSpeed;
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            motion.speed += maxSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            motion.speed -= maxSpeed;
         }
 
         //в компоненте анимаций изменяем значение параметра Speed на значение оси Х.
@@ -136,7 +150,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumpCommand.Execute();
             }
-            else if (Input.GetKeyUp(jumpButton))
+            if (Input.GetKeyUp(jumpButton))
             {
                 jumpCommand.Undo();
             }
@@ -146,6 +160,8 @@ public class PlayerController : MonoBehaviour
                 attackCommand.Execute();
             }
         }
+
     }
+
 
 }

@@ -18,7 +18,6 @@ public class BodyHit : HitModel
 
         HitAction += (n) => {
             Rigidbody2D targetRb = n.GetComponent<Rigidbody2D>();
-            Debug.Log(targetRb.velocity.y);
             if (targetRb.velocity.y == 0)
             {
                 targetRb.AddForce(8 * Vector2.up, ForceMode2D.Impulse);
@@ -31,7 +30,6 @@ public class BodyHit : HitModel
         int size = coll.OverlapCollider(filter, colls);
         for (int i = 0; i < size; i++) {
             TakeDamageModel target = colls[i].GetComponent<TakeDamageModel>();
-            Debug.Log(filter.layerMask);
             if (target != null) {
                 Fight2D.Action(this, target);
             }

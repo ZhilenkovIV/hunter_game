@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd70da2751f404cdfb69b8c385466d26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BaseSpeed: 3
   attackRadius: 0.76
   detectPlayer: {fileID: 3042555562864905317}
   lostZone: {fileID: 1843396030160321201}

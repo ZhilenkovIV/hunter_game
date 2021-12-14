@@ -14,12 +14,13 @@ public class MorticianStroke : MonoBehaviour, ICommand
 
     private Animator animator;
 
-    private FollowBehavior followBehavior;
     public List<TakeDamageModel> passes;
 
     public bool IsCoolDown { get; private set; }
 
-
+    public System.Action EndRestoration;
+    public System.Action beginAttack;
+    public System.Action endAttack;
 
     private IEnumerator restoration()
     {
@@ -31,21 +32,22 @@ public class MorticianStroke : MonoBehaviour, ICommand
         }
         canAttack = true;
         IsCoolDown = false;
+        EndRestoration?.Invoke();
+
     }
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        followBehavior = GetComponent<FollowBehavior>();
         model.HitAction += (n) => n.GetComponent<Rigidbody2D>().AddForce(8 * Vector2.up, ForceMode2D.Impulse);
     }
 
     private IEnumerator action()
     {
         float currentTime = 0;
+        beginAttack?.Invoke();
 
         animator.SetTrigger("stroke");
-        followBehavior.canMove = false;
         for (; currentTime < delay; currentTime += Time.deltaTime) {
             yield return null;
         }
@@ -69,12 +71,9 @@ public class MorticianStroke : MonoBehaviour, ICommand
             currentTime += Time.deltaTime;
             yield return null;
         }
-        followBehavior.canMove = true;
-        for (; currentTime < period; currentTime += Time.deltaTime)
-        {
-            yield return null;
-        }
+        endAttack?.Invoke();
     }
+
     public void Execute()
     {
         if (canAttack)

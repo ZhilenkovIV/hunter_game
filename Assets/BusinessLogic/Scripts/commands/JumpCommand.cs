@@ -14,7 +14,9 @@ public class JumpCommand : MonoBehaviour, ICommand
     public void Execute()
     {
         rb.AddForce(Vector2.up * power, ForceMode2D.Impulse);
+        
     }
+
 
     public void Undo()
     {

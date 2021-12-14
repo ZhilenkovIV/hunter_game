@@ -9,6 +9,8 @@ public class ZombiController : MonoBehaviour
     public ICommand attackCommand;
     public IMotion motion;
 
+    public float BaseSpeed;
+
     public float attackRadius;
 
     public Detector detectPlayer;
@@ -19,6 +21,9 @@ public class ZombiController : MonoBehaviour
     private Rigidbody2D target;
 
     private UnitStateMachine stateMachine;
+
+    
+    public Patroler patroler2;
 
 
     // Start is called before the first frame update
@@ -39,15 +44,20 @@ public class ZombiController : MonoBehaviour
 
         Patroler patroler = new Patroler(transform, stateMachine, transform.position)
         {
-            speed = 2f,
+            speed = BaseSpeed * 0.7f,
             time = 3f
         };
         Follower follower = new Follower(transform, stateMachine)
         {
-            maxSpeed = 3f
+            maxSpeed = BaseSpeed
+        };
+        MoveToPoint motionToPoint = new MoveToPoint(transform, stateMachine, patroler.point, patroler)
+        {
+            speed = new Vector2(BaseSpeed * 0.8f, 0)
         };
 
-        stateMachine.SetState(patroler);
+        //stateMachine.SetState(patroler);
+        stateMachine.Initialize(follower);
 
 
         target = GameObject.FindGameObjectWithTag(targetTag).GetComponent<Rigidbody2D>();
@@ -60,13 +70,13 @@ public class ZombiController : MonoBehaviour
         attackZone.Stay += () => attackCommand.Execute();
         attackZone.Exit += () => stateMachine.SetState(follower);
 
-        lostZone.Exit += () =>
-        {
-            if (stateMachine.currentState == follower)
-            {
-                stateMachine.SetState(new WaitState(transform, stateMachine, 1, new MoveToPoint(transform, stateMachine, patroler.point, patroler)));
-            }
-        };
+        //lostZone.Exit += () =>
+        //{
+        //    if (stateMachine.currentState == follower)
+        //    {
+        //        stateMachine.SetState(new WaitState(transform, stateMachine, 1, motionToPoint));
+        //    }
+        //};
     }
 
 

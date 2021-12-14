@@ -8,35 +8,38 @@ public class MorticianController : MonoBehaviour
     private MorticianStroke stroke;
     private ICommand charge;
 
-    private FollowBehavior follow;
+    private UnitStateMachine stateMachine;
 
-    IEnumerator cameraTarget(float time) {
-        Camera.current.GetComponent<CameraController>().followObject = gameObject.transform;
-        yield return new WaitForSeconds(time);
-        Camera.current.GetComponent<CameraController>().followObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-    }
-    
+    private Transform player;
+
+    private IdleState idle;
+
+
     // Start is called before the first frame update
     void Start()
     {
         stroke = GetComponent<MorticianStroke>();
         charge = GetComponent<MorticianCharge>();
-        follow = GetComponent<FollowBehavior>();
+        stateMachine = GetComponent<UnitStateMachine>();
+
+        Follower follower = new Follower(transform, stateMachine);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        follower.SetTarget(player.GetComponent<Rigidbody2D>());
+        follower.maxSpeed = 4f;
+        stateMachine.Initialize(follower);
+
+        idle = new IdleState(transform, stateMachine);
+
+        stroke.beginAttack += () => stateMachine.SetState(idle);
+        stroke.endAttack += () => stateMachine.SetState(follower);
+
     }
 
-    private void Update()
+    void Update()
     {
-        if (follow.IsFollowing)
-        {
-            //charge.Execute();
-            if (follow.IsInMinDistance)
-            {
-                stroke.Execute();
-            }
-            else
-            {
-                charge.Execute();
-            }
+        Vector2 distance = player.GetComponent<Rigidbody2D>().position - GetComponent<Rigidbody2D>().position;
+        if (Mathf.Abs(distance.x) < Mathf.Abs(stroke.offset.x)) {
+            stroke.Execute();
         }
     }
 
