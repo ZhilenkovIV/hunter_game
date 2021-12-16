@@ -11,4 +11,5 @@ public static class Fight2D
             target.damageAction?.Invoke(source);
         }
     }
+    
 }
