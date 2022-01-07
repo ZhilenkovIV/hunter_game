@@ -8,8 +8,8 @@ public class WaitState : BaseUnitState
     private float time;
     private BaseUnitState nextState;
 
-    public WaitState(Transform unit, IUnitStateSwitcher switcher, float time, BaseUnitState nextState)
-        : base(unit, switcher)
+    public WaitState(StateInfo info, float time, BaseUnitState nextState)
+        : base(info)
     {
         this.time = time;
         this.nextState = nextState;

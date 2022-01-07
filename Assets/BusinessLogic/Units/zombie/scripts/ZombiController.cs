@@ -42,16 +42,16 @@ public class ZombiController : MonoBehaviour
 
         stateMachine = GetComponent<UnitStateMachine>();
 
-        Patroler patroler = new Patroler(transform, stateMachine, transform.position)
+        Patroler patroler = new Patroler(new StateInfo(transform, stateMachine), transform.position)
         {
             speed = BaseSpeed * 0.7f,
             time = 3f
         };
-        Follower follower = new Follower(transform, stateMachine)
+        Follower follower = new Follower(new StateInfo(transform, stateMachine))
         {
             maxSpeed = BaseSpeed
         };
-        MoveToPoint motionToPoint = new MoveToPoint(transform, stateMachine, patroler.point, patroler)
+        MoveToPoint motionToPoint = new MoveToPoint(new StateInfo(transform, stateMachine), patroler.point, patroler)
         {
             speed = new Vector2(BaseSpeed * 0.8f, 0)
         };
@@ -66,7 +66,7 @@ public class ZombiController : MonoBehaviour
 
         detectPlayer.Enter += () => stateMachine.SetState(follower);
 
-        attackZone.Enter += () => stateMachine.SetState(new IdleState(transform, stateMachine));
+        attackZone.Enter += () => stateMachine.SetState(new IdleState(new StateInfo(transform, stateMachine)));
         attackZone.Stay += () => attackCommand.Execute();
         attackZone.Exit += () => stateMachine.SetState(follower);
 

@@ -13,7 +13,7 @@ public class UnitStateMachine : MonoBehaviour, IUnitStateSwitcher
     // Start is called before the first frame update
     public void Start()
     {
-        currentState = new IdleState(transform, this);
+        currentState = new IdleState(new StateInfo(transform, this));
         states = new List<BaseUnitState>();
     }
 

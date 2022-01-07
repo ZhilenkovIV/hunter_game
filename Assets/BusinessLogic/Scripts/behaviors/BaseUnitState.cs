@@ -7,10 +7,9 @@ public abstract class BaseUnitState
     protected readonly IUnitStateSwitcher _switcher;
     protected readonly Transform _unit;
 
-
-    protected BaseUnitState(Transform unit, IUnitStateSwitcher switcher) {
-        _unit = unit;
-        _switcher = switcher;
+    protected BaseUnitState(StateInfo stateInfo) {
+        _switcher = stateInfo.switcher;
+        _unit = stateInfo.unit;
     }
 
     public abstract void Entry();

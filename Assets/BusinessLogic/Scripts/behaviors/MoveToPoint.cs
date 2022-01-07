@@ -11,11 +11,11 @@ public class MoveToPoint : BaseUnitState
 	private readonly Rigidbody2D rb;
     private readonly BaseUnitState _nextState;
 
-    public MoveToPoint(Transform unit, IUnitStateSwitcher switcher, Vector2 destination, BaseUnitState nextState)
-        : base(unit, switcher)
+    public MoveToPoint(StateInfo info, Vector2 destination, BaseUnitState nextState)
+        : base(info)
     {
-        rb = unit.GetComponent<Rigidbody2D>();
-        motion = unit.GetComponent<IMotion>();
+        rb = info.unit.GetComponent<Rigidbody2D>();
+        motion = info.unit.GetComponent<IMotion>();
         _nextState = nextState;
         this.destination = destination;
     }

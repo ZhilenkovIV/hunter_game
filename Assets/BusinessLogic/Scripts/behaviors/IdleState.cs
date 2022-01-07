@@ -6,10 +6,10 @@ public class IdleState : BaseUnitState
 {
 
     IMotion motion;
-    public IdleState(Transform unit, IUnitStateSwitcher switcher)
-        : base(unit, switcher)
+    public IdleState(StateInfo info)
+        : base(info)
     {
-        motion = unit.GetComponent<IMotion>();
+        motion = info.unit.GetComponent<IMotion>();
     }
 
     public override void Entry()

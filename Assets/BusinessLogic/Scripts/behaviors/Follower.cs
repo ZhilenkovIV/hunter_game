@@ -11,12 +11,12 @@ public class Follower : BaseUnitState
     private IMotion motion;
 
     // Start is called before the first frame update
-    public Follower(Transform transfrom, IUnitStateSwitcher switcher)
-        : base(transfrom, switcher)
+    public Follower(StateInfo info)
+        : base(info)
     {
 
-        motion = transfrom.GetComponent<IMotion>();
-        rb = transfrom.GetComponent<Rigidbody2D>();
+        motion = info.unit.GetComponent<IMotion>();
+        rb = info.unit.GetComponent<Rigidbody2D>();
     }
 
     public void SetTarget(Rigidbody2D target){

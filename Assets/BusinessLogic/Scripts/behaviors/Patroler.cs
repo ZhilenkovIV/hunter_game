@@ -15,10 +15,10 @@ public class Patroler : BaseUnitState
 	public Vector2 point;
 
     // Start is called before the first frame update
-    public Patroler(Transform unit, IUnitStateSwitcher switcher, Vector2 point)
-        : base(unit, switcher)
+    public Patroler(StateInfo info, Vector2 point)
+        : base(info)
     {
-        this.motion = unit.GetComponent<IMotion>();
+        this.motion = info.unit.GetComponent<IMotion>();
         this.point = point;
     }
 

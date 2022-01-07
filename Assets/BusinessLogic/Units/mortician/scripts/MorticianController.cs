@@ -22,13 +22,13 @@ public class MorticianController : MonoBehaviour
         charge = GetComponent<MorticianCharge>();
         stateMachine = GetComponent<UnitStateMachine>();
 
-        Follower follower = new Follower(transform, stateMachine);
+        Follower follower = new Follower(new StateInfo(transform, stateMachine));
         player = GameObject.FindGameObjectWithTag("Player").transform;
         follower.SetTarget(player.GetComponent<Rigidbody2D>());
         follower.maxSpeed = 4f;
         stateMachine.Initialize(follower);
 
-        idle = new IdleState(transform, stateMachine);
+        idle = new IdleState(new StateInfo(transform, stateMachine));
 
         stroke.beginAttack += () => stateMachine.SetState(idle);
         stroke.endAttack += () => stateMachine.SetState(follower);
