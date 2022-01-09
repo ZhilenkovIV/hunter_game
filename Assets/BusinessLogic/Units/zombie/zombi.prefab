@@ -284,6 +284,7 @@ GameObject:
   - component: {fileID: 5307450705289600126}
   - component: {fileID: 4625245334428725705}
   - component: {fileID: 2401848340366721635}
+  - component: {fileID: 2185370831304253904}
   m_Layer: 10
   m_Name: zombi
   m_TagString: Untagged
@@ -503,3 +504,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232863d0355db4133bcdbc588c12b39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2185370831304253904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8886079987506344936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7fe88c6da2342628cd5cf999e7e53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 2
+  immunityTime: 0.5
+  immunityColor: {r: 1, g: 0, b: 0, a: 1}
+  isImmunuted: 0

@@ -92,6 +92,8 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         };
+
+        transform.GetComponent<PlayerAttack>().attacker.AttackTrigger = ()=> Input.GetKeyUp(KeyCode.Z);
         
     }
 
