@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TakeDamageModel : MonoBehaviour
+public class Damageable : MonoBehaviour
 {
     [SerializeField]
     private float hp;

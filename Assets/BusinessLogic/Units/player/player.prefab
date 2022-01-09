@@ -386,7 +386,6 @@ GameObject:
   - component: {fileID: 1888317645638205137}
   - component: {fileID: 7178003684179714737}
   - component: {fileID: 5784515471237279107}
-  - component: {fileID: 7849266888331717155}
   - component: {fileID: 4020937740003044253}
   - component: {fileID: 374231120553084367}
   - component: {fileID: 8253159123209001649}
@@ -580,25 +579,8 @@ MonoBehaviour:
   attackButton: 122
   lampButton: 99
   maxSpeed: 4.5
-  jumpTime: 0.5
   canInputHandle: 1
   motion: {fileID: 0}
---- !u!114 &7849266888331717155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4899540554667245971}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa17a1e1eb3054accb233604e867f216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 3
-  immunityTime: 2
-  immunityColor: {r: 0, g: 0.59395885, b: 1, a: 1}
-  isImmunuted: 0
 --- !u!114 &4020937740003044253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,9 +594,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 20
-  time: 0.3
-  current: 0
-  isJump: 0
 --- !u!114 &374231120553084367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -656,7 +635,6 @@ MonoBehaviour:
   model: {fileID: 4870654204220705274}
   period: 0.5
   attackRadius: 1
-  passes: []
   canAttack: 1
 --- !u!114 &9134586318415588519
 MonoBehaviour:

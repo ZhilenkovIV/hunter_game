@@ -23,7 +23,7 @@ public class ZombiAttack : MonoBehaviour, ICommand
         Collider2D[] colliders = Physics2D.OverlapCircleAll(model.transform.position, attackRadius, model.hitLayer);
         foreach (Collider2D c in colliders)
         {
-            TakeDamageModel target = c.GetComponent<TakeDamageModel>();
+            Damageable target = c.GetComponent<Damageable>();
             if (target != null && !target.isImmunuted)
             {
                 Fight2D.Action(model, target);

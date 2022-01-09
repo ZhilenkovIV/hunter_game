@@ -11,7 +11,7 @@ public class MorticianCharge : MonoBehaviour, ICommand
 
     private bool CanAttack = true;
 
-    public List<TakeDamageModel> passes;
+    public List<Damageable> passes;
     public float attackRadius;
 
     private bool firstCharge = true;
@@ -52,7 +52,7 @@ public class MorticianCharge : MonoBehaviour, ICommand
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, model.hitLayer);
             foreach (Collider2D c in colliders)
             {
-                TakeDamageModel target = c.GetComponent<TakeDamageModel>();
+                Damageable target = c.GetComponent<Damageable>();
                 if (target != null && !target.isImmunuted && !passes.Contains(target))
                 {
                     Fight2D.Action(model, target);
@@ -95,7 +95,7 @@ public class MorticianCharge : MonoBehaviour, ICommand
             }
         };
         animator = GetComponent<Animator>();
-        passes = new List<TakeDamageModel>();
+        passes = new List<Damageable>();
     }
 
 }

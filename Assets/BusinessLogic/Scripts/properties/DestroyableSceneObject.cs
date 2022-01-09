@@ -10,7 +10,7 @@ public class DestroyableSceneObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<TakeDamageModel>().dieAction += () =>
+        GetComponent<Damageable>().dieAction += () =>
         {
             GetComponent<SpriteRenderer>().sprite = destroedSprite;
             gameObject.layer = 13;

@@ -31,9 +31,9 @@ public class ZombiController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        GetComponent<TakeDamageModel>().damageAction +=
+        GetComponent<Damageable>().damageAction +=
             (n)=> rb.AddForce(15 * Mathf.Sign(n.transform.lossyScale.x) * Vector2.right, ForceMode2D.Impulse);
-        GetComponent<TakeDamageModel>().dieAction += () => Destroy(gameObject);
+        GetComponent<Damageable>().dieAction += () => Destroy(gameObject);
 
         motion = GetComponent<MoveXCommand>();
 

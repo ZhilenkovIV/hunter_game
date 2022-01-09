@@ -29,7 +29,7 @@ public class BodyHit : HitModel
     {
         int size = coll.OverlapCollider(filter, colls);
         for (int i = 0; i < size; i++) {
-            TakeDamageModel target = colls[i].GetComponent<TakeDamageModel>();
+            Damageable target = colls[i].GetComponent<Damageable>();
             if (target != null) {
                 Fight2D.Action(this, target);
             }

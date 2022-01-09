@@ -6,5 +6,5 @@ public class HitModel : MonoBehaviour
     public float hit;
     public LayerMask hitLayer;
 
-    public System.Action<TakeDamageModel> HitAction;
+    public System.Action<Damageable> HitAction;
 }

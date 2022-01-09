@@ -14,7 +14,7 @@ public class MorticianStroke : MonoBehaviour, ICommand
 
     private Animator animator;
 
-    public List<TakeDamageModel> passes;
+    public HashSet<Damageable> passes;
 
     public bool IsCoolDown { get; private set; }
 
@@ -58,7 +58,7 @@ public class MorticianStroke : MonoBehaviour, ICommand
         Collider2D[] colliders = Physics2D.OverlapCircleAll(position + currentOffset, attackRadius, model.hitLayer);
         foreach (Collider2D c in colliders)
         {
-            TakeDamageModel target = c.GetComponent<TakeDamageModel>();
+            Damageable target = c.GetComponent<Damageable>();
             if (target != null && !target.isImmunuted && !passes.Contains(target))
             {
                 Fight2D.Action(model, target);

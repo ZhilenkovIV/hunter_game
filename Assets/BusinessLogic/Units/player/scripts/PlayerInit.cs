@@ -15,7 +15,7 @@ public class PlayerInit : MonoBehaviour
 
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        GetComponent<TakeDamageModel>().damageAction += (n) =>
+        GetComponent<Damageable>().damageAction += (n) =>
         {
             rb.AddForce(15 * Mathf.Sign(n.transform.lossyScale.x) * Vector2.right, ForceMode2D.Impulse);
         };

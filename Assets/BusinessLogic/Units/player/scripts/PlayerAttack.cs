@@ -8,7 +8,7 @@ public class PlayerAttack : MonoBehaviour, ICommand
     public float period;
     public float attackRadius;
 
-    public List<TakeDamageModel> passes;
+    public HashSet<Damageable> passes;
 
     public event System.Action NotPreparedAction;
 
@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour, ICommand
     private bool canAttack = true;
 
     private Animator animator;
+
+    public AttackState attackState;
 
     private IEnumerator attack() {
         animator.SetTrigger("Attack");
@@ -30,7 +32,7 @@ public class PlayerAttack : MonoBehaviour, ICommand
             Collider2D[] colliders = Physics2D.OverlapCircleAll(model.transform.position, attackRadius, model.hitLayer);
             foreach (Collider2D c in colliders)
             {
-                TakeDamageModel target = c.GetComponent<TakeDamageModel>();
+                Damageable target = c.GetComponent<Damageable>();
                 if (target != null && !target.isImmunuted && !passes.Contains(target))
                 {
                     Fight2D.Action(model, target);
@@ -48,7 +50,7 @@ public class PlayerAttack : MonoBehaviour, ICommand
     }
 
     void Start() {
-        passes = new List<TakeDamageModel>();
+        passes = new HashSet<Damageable>();
         animator = GetComponent<Animator>();
         ParticleSystem particles = model.GetComponent<ParticleSystem>();
         model.HitAction += (t) => particles.Play();
